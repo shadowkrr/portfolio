@@ -1,23 +1,28 @@
-// Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Hide loader after page load
+    // Hide loader
     window.addEventListener('load', function() {
         setTimeout(() => {
             const loader = document.getElementById('loader');
-            loader.classList.add('hidden');
+            if (loader) {
+                loader.classList.add('hidden');
+                document.body.classList.add('loaded'); // Enable scrolling after loading
+            }
         }, 1000);
     });
 
-    // Initialize AOS (Animate On Scroll)
-    AOS.init({
-        duration: 1000,
-        easing: 'ease-in-out',
-        once: false,
-        mirror: true
-    });
+    // Initialize AOS safely
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: false,
+            mirror: true
+        });
+    } else {
+        console.warn('AOS library not loaded');
+    }
 
-    // Custom Cursor
+    // Cursor
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
 
@@ -32,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100);
         });
 
-        // Cursor hover effects
+        // Hover effects
         const hoverElements = document.querySelectorAll('a, button, .filter-btn');
         hoverElements.forEach(element => {
             element.addEventListener('mouseenter', () => {
@@ -46,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Particle Background Configuration
+    // Particles
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             particles: {
@@ -138,11 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Dark Mode Toggle
+    // Dark mode
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
     
-    // Check for saved theme preference
+    // Check saved theme
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'dark') {
         body.classList.add('dark-mode');
@@ -161,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Navbar Scroll Effect
+    // Navbar scroll
     const navbar = document.getElementById('navbar');
     let lastScroll = 0;
 
@@ -177,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 
-    // Smooth Scrolling for Navigation Links
+    // Smooth scrolling
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
@@ -194,13 +199,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Close mobile menu if open
+            // Close mobile menu
             navMenu.classList.remove('active');
             hamburger.classList.remove('active');
         });
     });
 
-    // Active Link Highlighting
+    // Active links
     const sections = document.querySelectorAll('section');
     
     window.addEventListener('scroll', () => {
@@ -223,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Hamburger Menu Toggle
+    // Hamburger menu
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
 
@@ -232,24 +237,36 @@ document.addEventListener('DOMContentLoaded', function() {
         navMenu.classList.toggle('active');
     });
 
-    // Typing Animation
-    if (typeof Typed !== 'undefined') {
-        new Typed('.typing-subtitle', {
-            strings: [
-                'Full Stack Developer',
-                'Freelance Engineer',
-                'Web Application Specialist',
-                'Mobile App Developer',
-                'Open Source Contributor'
-            ],
-            typeSpeed: 50,
-            backSpeed: 30,
-            backDelay: 2000,
-            loop: true
-        });
+    // Typing animation - will be initialized after i18n is loaded
+    let typedInstance = null;
+    
+    function initTypingAnimation() {
+        if (typeof Typed !== 'undefined' && window.i18n) {
+            // Destroy existing instance if it exists
+            if (typedInstance) {
+                typedInstance.destroy();
+            }
+            
+            const subtitles = window.i18n.t('hero.subtitles');
+            if (Array.isArray(subtitles)) {
+                typedInstance = new Typed('.typing-subtitle', {
+                    strings: subtitles,
+                    typeSpeed: 50,
+                    backSpeed: 30,
+                    backDelay: 2000,
+                    loop: true
+                });
+            }
+        }
     }
+    
+    // Listen for language changes to reinitialize typing animation
+    window.addEventListener('languageChanged', initTypingAnimation);
+    
+    // Initialize typing animation after a short delay to ensure i18n is loaded
+    setTimeout(initTypingAnimation, 500);
 
-    // Counter Animation for Stats
+    // Counter animation
     const counters = document.querySelectorAll('.stat-number');
     const speed = 200;
 
@@ -271,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCounter();
     };
 
-    // Intersection Observer for Counter Animation
+    // Counter observer
     const observerOptions = {
         threshold: 0.5
     };
@@ -289,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
         counterObserver.observe(counter);
     });
 
-    // Skill Progress Animation
+    // Skill progress
     const skillCircles = document.querySelectorAll('.progress-ring-circle');
     
     const animateSkillProgress = (circle) => {
@@ -319,15 +336,15 @@ document.addEventListener('DOMContentLoaded', function() {
         skillObserver.observe(circle);
     });
 
-    // Work Filter Functionality
+    // Work filter
     const filterBtns = document.querySelectorAll('.filter-btn');
     const workCards = document.querySelectorAll('.work-card');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all buttons
+            // Remove active
             filterBtns.forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
+            // Add active
             btn.classList.add('active');
 
             const filter = btn.getAttribute('data-filter');
@@ -350,10 +367,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Contact Form Handler - Now handled by contact-form.js
-    // The contact form functionality has been moved to a dedicated module
+    // Contact form handled by contact-form.js
 
-    // Back to Top Button
+    // Back to top
     const backToTopBtn = document.getElementById('backToTop');
     
     window.addEventListener('scroll', () => {
@@ -371,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Parallax Effect for Hero Section
+    // Parallax
     const heroSection = document.querySelector('.hero');
     const heroBackground = document.querySelector('.hero-gradient');
     
@@ -384,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Add smooth reveal animation to elements
+    // Reveal animation
     const revealElements = document.querySelectorAll('.section-title, .section-subtitle, .work-card, .skill-item');
     
     const revealObserver = new IntersectionObserver((entries) => {
@@ -402,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
         revealObserver.observe(element);
     });
 
-    // Add hover effect to buttons
+    // Button hover effect
     const buttons = document.querySelectorAll('.btn');
     
     buttons.forEach(button => {
@@ -423,9 +439,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Keyboard Navigation Support
+    // Keyboard navigation
     function setupKeyboardNavigation() {
-        // Handle hamburger menu keyboard navigation
+        // Hamburger keyboard
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         
@@ -441,13 +457,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Handle work card keyboard navigation
+        // Work card keyboard
         const workCards = document.querySelectorAll('.work-card');
         workCards.forEach(card => {
             card.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    // Simulate click on the work link inside the card
+                    // Click work link
                     const workLink = this.querySelector('.work-link');
                     if (workLink) {
                         workLink.click();
@@ -456,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Handle filter buttons keyboard navigation with arrow keys
+        // Filter button keyboard
         const filterButtons = document.querySelectorAll('.filter-btn');
         filterButtons.forEach((button, index) => {
             button.addEventListener('keydown', function(e) {
@@ -492,17 +508,17 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Update aria-pressed attributes for filter buttons
+        // Update aria-pressed
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // Reset all buttons
+                // Reset buttons
                 filterButtons.forEach(btn => btn.setAttribute('aria-pressed', 'false'));
-                // Set current button as pressed
+                // Set pressed
                 this.setAttribute('aria-pressed', 'true');
             });
         });
 
-        // Skip link functionality
+        // Skip link
         const skipLink = document.querySelector('.skip-link');
         if (skipLink) {
             skipLink.addEventListener('click', function(e) {
@@ -515,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Escape key handling for mobile menu
+        // Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 if (navMenu && navMenu.classList.contains('active')) {
@@ -527,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Announce dynamic content changes for screen readers
+        // Screen reader announcements
         function announceToScreenReader(message) {
             const announcement = document.createElement('div');
             announcement.setAttribute('aria-live', 'polite');
@@ -541,7 +557,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         }
 
-        // Add announcement for filter changes
+        // Filter announcements
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const filterType = this.textContent.trim();
@@ -549,7 +565,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Dark mode toggle keyboard support
+        // Dark mode keyboard
         const themeToggle = document.getElementById('theme-toggle');
         if (themeToggle) {
             themeToggle.addEventListener('keydown', function(e) {
@@ -561,18 +577,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Initialize keyboard navigation
+    // Init keyboard nav
     setupKeyboardNavigation();
 
-    // Mobile UX Optimizations
+    // Mobile UX
     function setupMobileUX() {
-        // Touch device detection
+        // Touch detection
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         
         if (isTouchDevice) {
             document.body.classList.add('touch-device');
             
-            // Work card touch interactions
+            // Touch interactions
             const workCards = document.querySelectorAll('.work-card');
             workCards.forEach(card => {
                 let touchStartTime = 0;
@@ -594,22 +610,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     const touchDistanceX = Math.abs(touchEndX - touchStartX);
                     const touchDistanceY = Math.abs(touchEndY - touchStartY);
                     
-                    // If it's a tap (short duration, small movement)
+                    // Tap detection
                     if (touchDuration < 300 && touchDistanceX < 10 && touchDistanceY < 10) {
                         e.preventDefault();
                         
                         // Toggle card flip
                         if (this.classList.contains('flipped')) {
-                            // If already flipped, navigate to link
+                            // Navigate if flipped
                             const workLink = this.querySelector('.work-link');
                             if (workLink) {
                                 window.open(workLink.href, '_blank', 'noopener,noreferrer');
                             }
                         } else {
-                            // Flip the card
+                            // Flip card
                             this.classList.add('flipped');
                             
-                            // Remove flip from other cards
+                            // Remove other flips
                             workCards.forEach(otherCard => {
                                 if (otherCard !== this) {
                                     otherCard.classList.remove('flipped');
@@ -620,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, { passive: false });
             });
             
-            // Add swipe indicators to work cards
+            // Swipe indicators
             workCards.forEach(card => {
                 if (!card.querySelector('.swipe-indicator')) {
                     const indicator = document.createElement('div');
@@ -630,11 +646,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Improved form focus for mobile
+            // Form focus mobile
             const formInputs = document.querySelectorAll('.form-control');
             formInputs.forEach(input => {
                 input.addEventListener('focus', function() {
-                    // Scroll input into view on focus
+                    // Scroll to input
                     setTimeout(() => {
                         this.scrollIntoView({ 
                             behavior: 'smooth', 
@@ -646,7 +662,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Viewport height fix for mobile browsers
+        // Viewport height fix
         function setViewportHeight() {
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -658,7 +674,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(setViewportHeight, 500);
         });
         
-        // Improved scroll behavior for mobile
+        // Mobile scroll
         let ticking = false;
         let lastScrollY = 0;
         
@@ -668,10 +684,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (navbar) {
                 if (scrollY > lastScrollY && scrollY > 100) {
-                    // Scrolling down
+                    // Down
                     navbar.style.transform = 'translateY(-100%)';
                 } else {
-                    // Scrolling up
+                    // Up
                     navbar.style.transform = 'translateY(0)';
                 }
             }
@@ -689,7 +705,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         window.addEventListener('scroll', requestScrollUpdate, { passive: true });
         
-        // Touch-friendly theme toggle
+        // Touch theme toggle
         const themeToggle = document.getElementById('theme-toggle');
         if (themeToggle && isTouchDevice) {
             let tapTimeout;
@@ -708,17 +724,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearTimeout(tapTimeout);
                 this.style.transform = 'scale(1)';
                 
-                // Trigger theme change
+                // Change theme
                 this.click();
             }, { passive: false });
         }
         
-        // Improve mobile navigation
+        // Mobile nav
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         
         if (hamburger && navMenu && isTouchDevice) {
-            // Close menu when clicking outside
+            // Close menu outside
             document.addEventListener('touchstart', function(e) {
                 if (navMenu.classList.contains('active') && 
                     !navMenu.contains(e.target) && 
@@ -729,7 +745,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Close menu when clicking a nav link
+            // Close menu nav link
             const navLinks = navMenu.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.addEventListener('touchend', function() {
@@ -740,15 +756,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Performance optimizations for mobile
+        // Mobile performance
         if (isTouchDevice) {
-            // Disable particles on mobile for better performance
+            // Disable particles mobile
             const particlesContainer = document.getElementById('particles-js');
             if (particlesContainer && window.innerWidth < 768) {
                 particlesContainer.style.display = 'none';
             }
             
-            // Reduce AOS animations on mobile
+            // Reduce AOS mobile
             AOS.refresh({
                 duration: 600,
                 easing: 'ease-out',
@@ -758,14 +774,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Initialize mobile UX
+    // Init mobile UX
     setupMobileUX();
 
-    // Initialize everything
-    console.log('Portfolio site initialized successfully!');
+    // Initialize
 });
 
-// Add ripple effect styles dynamically
+// Ripple styles
 const style = document.createElement('style');
 style.textContent = `
     .ripple {

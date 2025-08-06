@@ -500,6 +500,37 @@ class OfflineManager {
         
         console.log('Offline data cleared');
     }
+    
+    /**
+     * Force sync now (for manual triggers)
+     */
+    async forceSyncNow() {
+        if (!this.isOnline) {
+            this.showNotification('オフライン中は同期できません', 'warning');
+            return false;
+        }
+        
+        if (this.syncInProgress) {
+            this.showNotification('既に同期処理が実行中です', 'info');
+            return false;
+        }
+        
+        this.showNotification('手動同期を開始します', 'info', 2000);
+        await this.processOfflineQueue();
+        return true;
+    }
+    
+    /**
+     * Get sync status
+     */
+    getSyncStatus() {
+        return {
+            isOnline: this.isOnline,
+            syncInProgress: this.syncInProgress || false,
+            lastSyncTime: this.lastSyncTime,
+            metrics: this.metrics || {}
+        };
+    }
 }
 
 // Add animation styles
@@ -533,6 +564,16 @@ document.head.appendChild(style);
 document.addEventListener('DOMContentLoaded', () => {
     if (!window.offlineManager) {
         window.offlineManager = new OfflineManager();
+        
+        // Expose methods for debugging
+        if (typeof window !== 'undefined') {
+            window.debugOffline = {
+                getStats: () => window.offlineManager.getOfflineStats(),
+                clearData: (options) => window.offlineManager.clearOfflineData(options),
+                forceSync: () => window.offlineManager.forceSyncNow(),
+                status: () => window.offlineManager.getSyncStatus()
+            };
+        }
     }
 });
 

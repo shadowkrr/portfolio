@@ -49,7 +49,7 @@ class PWAManager {
     }
     
     /**
-     * Set up Service Worker
+     * Set up Service Worker with enhanced features
      */
     async setupServiceWorker() {
         if ('serviceWorker' in navigator) {
@@ -66,9 +66,51 @@ class PWAManager {
                 // Check for updates
                 this.swRegistration.addEventListener('updatefound', this.handleSWUpdate.bind(this));
                 
+                // Get service worker version
+                await this.getServiceWorkerVersion();
+                
+                // Track registration success
+                this.trackEvent('sw_registered', {
+                    scope: this.swRegistration.scope
+                });
+                
             } catch (error) {
                 console.error('Service Worker registration failed:', error);
+                this.trackEvent('sw_registration_failed', {
+                    error: error.message
+                });
             }
+        }
+    }
+    
+    /**
+     * Get service worker version
+     */
+    async getServiceWorkerVersion() {
+        try {
+            if (this.swRegistration && this.swRegistration.active) {
+                const messageChannel = new MessageChannel();
+                const versionPromise = new Promise((resolve) => {
+                    messageChannel.port1.onmessage = (event) => {
+                        this.swVersion = event.data.version;
+                        console.log('Service Worker version:', this.swVersion);
+                        resolve(event.data.version);
+                    };
+                    
+                    // Timeout after 5 seconds
+                    setTimeout(() => resolve('unknown'), 5000);
+                });
+                
+                this.swRegistration.active.postMessage(
+                    { type: 'GET_VERSION' },
+                    [messageChannel.port2]
+                );
+                
+                return await versionPromise;
+            }
+        } catch (error) {
+            console.warn('Could not get service worker version:', error);
+            return 'unknown';
         }
     }
     
@@ -120,17 +162,37 @@ class PWAManager {
             console.log('Install prompt available');
             e.preventDefault();
             this.deferredPrompt = e;
-            this.showInstallButton();
+            
+            // Show install button after a delay
+            setTimeout(() => {
+                this.showInstallButton();
+            }, 3000);
+            
+            // Show install banner if user hasn't dismissed it
+            if (!localStorage.getItem('pwa-install-dismissed')) {
+                this.showInstallBanner();
+            }
         });
         
         window.addEventListener('appinstalled', () => {
             console.log('App installed successfully');
             this.isInstalled = true;
             this.hideInstallButton();
+            this.hideInstallBanner();
             this.showInstallSuccessMessage();
             
             // Track install event
             this.trackEvent('app_installed');
+            
+            // Clear dismissal flag
+            localStorage.removeItem('pwa-install-dismissed');
+        });
+        
+        // Check for related app installs
+        window.addEventListener('beforeunload', () => {
+            if (this.deferredPrompt) {
+                this.trackEvent('install_prompt_abandoned');
+            }
         });
     }
     
@@ -232,6 +294,91 @@ class PWAManager {
                 transform: translateY(0);
             }
             
+            .pwa-install-banner {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 15px 20px;
+                display: none;
+                align-items: center;
+                justify-content: space-between;
+                z-index: 1003;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            }
+            
+            .pwa-install-banner.show {
+                display: flex;
+                animation: slideInDown 0.3s ease;
+            }
+            
+            .pwa-install-banner .banner-content {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                flex: 1;
+            }
+            
+            .pwa-install-banner .banner-text {
+                flex: 1;
+            }
+            
+            .pwa-install-banner .banner-title {
+                font-weight: bold;
+                margin-bottom: 4px;
+                font-size: 14px;
+            }
+            
+            .pwa-install-banner .banner-subtitle {
+                font-size: 12px;
+                opacity: 0.9;
+            }
+            
+            .pwa-install-banner .banner-actions {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .pwa-install-banner .banner-button {
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+            
+            .pwa-install-banner .banner-button:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateY(-1px);
+            }
+            
+            .pwa-install-banner .banner-button.primary {
+                background: rgba(255, 255, 255, 0.9);
+                color: #667eea;
+            }
+            
+            .pwa-install-banner .banner-close {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 4px;
+                margin-left: 10px;
+                opacity: 0.8;
+            }
+            
+            .pwa-install-banner .banner-close:hover {
+                opacity: 1;
+            }
+            
             @keyframes slideInRight {
                 from { transform: translateX(100%); opacity: 0; }
                 to { transform: translateX(0); opacity: 1; }
@@ -260,6 +407,41 @@ class PWAManager {
         `;
         document.head.appendChild(style);
         document.body.appendChild(installButton);
+        
+        // Also create install banner
+        this.createInstallBanner();
+    }
+    
+    /**
+     * Create install banner
+     */
+    createInstallBanner() {
+        if (document.querySelector('.pwa-install-banner')) return;
+        
+        const banner = document.createElement('div');
+        banner.className = 'pwa-install-banner';
+        banner.innerHTML = `
+            <div class="banner-content">
+                <div class="banner-icon">📱</div>
+                <div class="banner-text">
+                    <div class="banner-title">アプリとしてインストール</div>
+                    <div class="banner-subtitle">ホーム画面に追加してより便利に</div>
+                </div>
+            </div>
+            <div class="banner-actions">
+                <button class="banner-button primary" onclick="window.pwaManager.promptInstall()">
+                    インストール
+                </button>
+                <button class="banner-button" onclick="window.pwaManager.dismissInstallBanner()">
+                    後で
+                </button>
+                <button class="banner-close" onclick="window.pwaManager.dismissInstallBanner(true)">
+                    ✕
+                </button>
+            </div>
+        `;
+        
+        document.body.appendChild(banner);
     }
     
     /**
@@ -288,6 +470,52 @@ class PWAManager {
         const button = document.querySelector('.pwa-install-button');
         if (button) {
             button.classList.remove('show');
+        }
+    }
+    
+    /**
+     * Show install banner
+     */
+    showInstallBanner() {
+        if (this.isInstalled) return;
+        
+        const banner = document.querySelector('.pwa-install-banner');
+        if (banner) {
+            banner.classList.add('show');
+            
+            // Auto-hide after 15 seconds if not interacted with
+            setTimeout(() => {
+                if (!localStorage.getItem('pwa-install-dismissed') && banner.classList.contains('show')) {
+                    this.dismissInstallBanner(false);
+                }
+            }, 15000);
+        }
+    }
+    
+    /**
+     * Hide install banner
+     */
+    hideInstallBanner() {
+        const banner = document.querySelector('.pwa-install-banner');
+        if (banner) {
+            banner.classList.remove('show');
+        }
+    }
+    
+    /**
+     * Dismiss install banner
+     */
+    dismissInstallBanner(permanent = false) {
+        this.hideInstallBanner();
+        
+        if (permanent) {
+            localStorage.setItem('pwa-install-dismissed', 'true');
+            this.trackEvent('install_banner_dismissed_permanently');
+        } else {
+            // Temporarily dismissed - show again after 24 hours
+            const dismissTime = Date.now();
+            localStorage.setItem('pwa-install-temp-dismissed', dismissTime.toString());
+            this.trackEvent('install_banner_dismissed_temporarily');
         }
     }
     
@@ -434,7 +662,7 @@ class PWAManager {
     }
     
     /**
-     * Set up update handler
+     * Set up update handler with smarter logic
      */
     setupUpdateHandler() {
         // Check for updates every 30 minutes
@@ -443,6 +671,18 @@ class PWAManager {
                 this.swRegistration.update();
             }
         }, 30 * 60 * 1000);
+        
+        // Also check on page visibility change
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && this.swRegistration) {
+                this.swRegistration.update();
+            }
+        });
+        
+        // Check immediately if online
+        if (navigator.onLine && this.swRegistration) {
+            this.swRegistration.update();
+        }
     }
     
     /**
@@ -461,7 +701,7 @@ class PWAManager {
     }
     
     /**
-     * Get app info
+     * Get comprehensive app info
      */
     getAppInfo() {
         return {
@@ -469,35 +709,172 @@ class PWAManager {
             isOnline: navigator.onLine,
             hasServiceWorker: 'serviceWorker' in navigator,
             swRegistration: !!this.swRegistration,
-            canInstall: !!this.deferredPrompt
+            canInstall: !!this.deferredPrompt,
+            
+            // Additional info
+            swState: this.swRegistration?.active?.state || 'none',
+            swScope: this.swRegistration?.scope || 'none',
+            lastUpdate: this.lastUpdateCheck || null,
+            cacheApiSupported: 'caches' in window,
+            notificationPermission: 'Notification' in window ? Notification.permission : 'unsupported',
+            storage: this.getStorageInfo()
         };
     }
     
     /**
-     * Clear app data
+     * Get storage information
      */
-    async clearAppData() {
+    getStorageInfo() {
+        if ('storage' in navigator && 'estimate' in navigator.storage) {
+            navigator.storage.estimate().then(estimate => {
+                console.log('Storage estimate:', estimate);
+                return {
+                    quota: estimate.quota,
+                    usage: estimate.usage,
+                    usagePercentage: ((estimate.usage || 0) / (estimate.quota || 1) * 100).toFixed(2)
+                };
+            });
+        }
+        return { supported: false };
+    }
+    
+    /**
+     * Clear app data with options
+     */
+    async clearAppData(options = {}) {
+        const {
+            clearCaches = true,
+            clearStorage = true,
+            clearServiceWorker = false,
+            clearIndexedDB = false
+        } = options;
+        
         try {
+            const results = {};
+            
             // Clear caches
-            if ('caches' in window) {
+            if (clearCaches && 'caches' in window) {
                 const cacheNames = await caches.keys();
                 await Promise.all(cacheNames.map(name => caches.delete(name)));
+                results.caches = `Cleared ${cacheNames.length} caches`;
             }
             
             // Clear service worker
-            if (this.swRegistration) {
+            if (clearServiceWorker && this.swRegistration) {
                 await this.swRegistration.unregister();
+                results.serviceWorker = 'Service worker unregistered';
             }
             
             // Clear storage
-            localStorage.clear();
-            sessionStorage.clear();
+            if (clearStorage) {
+                localStorage.clear();
+                sessionStorage.clear();
+                results.storage = 'Local and session storage cleared';
+            }
             
-            console.log('App data cleared');
-            return true;
+            // Clear IndexedDB
+            if (clearIndexedDB) {
+                results.indexedDB = await this.clearIndexedDB();
+            }
+            
+            console.log('App data cleared:', results);
+            return { success: true, results };
         } catch (error) {
             console.error('Failed to clear app data:', error);
-            return false;
+            return { success: false, error: error.message };
+        }
+    }
+    
+    /**
+     * Clear IndexedDB databases
+     */
+    async clearIndexedDB() {
+        try {
+            if (!('indexedDB' in window)) {
+                return 'IndexedDB not supported';
+            }
+            
+            // This is a simplified approach - in practice you'd want to
+            // enumerate and clear specific databases
+            const dbNames = ['PortfolioOfflineDB', 'PortfolioFormDB'];
+            const results = [];
+            
+            for (const dbName of dbNames) {
+                try {
+                    const deleteReq = indexedDB.deleteDatabase(dbName);
+                    await new Promise((resolve, reject) => {
+                        deleteReq.onsuccess = resolve;
+                        deleteReq.onerror = reject;
+                        deleteReq.onblocked = () => {
+                            console.warn(`Database ${dbName} deletion blocked`);
+                            resolve();
+                        };
+                    });
+                    results.push(`${dbName} cleared`);
+                } catch (error) {
+                    results.push(`${dbName} error: ${error.message}`);
+                }
+            }
+            
+            return results.join(', ');
+        } catch (error) {
+            return `IndexedDB clear error: ${error.message}`;
+        }
+    }
+    
+    /**
+     * Get cache statistics
+     */
+    async getCacheStats() {
+        try {
+            if (!('caches' in window)) {
+                return { supported: false };
+            }
+            
+            const cacheNames = await caches.keys();
+            const stats = {
+                supported: true,
+                totalCaches: cacheNames.length,
+                caches: []
+            };
+            
+            for (const cacheName of cacheNames) {
+                const cache = await caches.open(cacheName);
+                const keys = await cache.keys();
+                stats.caches.push({
+                    name: cacheName,
+                    entryCount: keys.length
+                });
+            }
+            
+            return stats;
+        } catch (error) {
+            return { supported: true, error: error.message };
+        }
+    }
+    
+    /**
+     * Force service worker update
+     */
+    async forceUpdate() {
+        try {
+            if (!this.swRegistration) {
+                throw new Error('No service worker registration');
+            }
+            
+            // Update the service worker
+            await this.swRegistration.update();
+            
+            // If there's a waiting service worker, activate it
+            if (this.swRegistration.waiting) {
+                this.swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                return true;
+            }
+            
+            return false; // No update available
+        } catch (error) {
+            console.error('Force update failed:', error);
+            throw error;
         }
     }
 }
@@ -505,6 +882,17 @@ class PWAManager {
 // Initialize PWA Manager
 document.addEventListener('DOMContentLoaded', () => {
     window.pwaManager = new PWAManager();
+    
+    // Expose debug methods
+    if (typeof window !== 'undefined') {
+        window.debugPWA = {
+            getInfo: () => window.pwaManager.getAppInfo(),
+            getCacheStats: () => window.pwaManager.getCacheStats(),
+            clearData: (options) => window.pwaManager.clearAppData(options),
+            forceUpdate: () => window.pwaManager.forceUpdate(),
+            getVersion: () => window.pwaManager.getServiceWorkerVersion()
+        };
+    }
 });
 
 // Export for external use

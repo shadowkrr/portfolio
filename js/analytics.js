@@ -15,7 +15,7 @@ class PortfolioAnalytics {
     constructor(options = {}) {
         // Configuration
         this.config = {
-            measurementId: options.measurementId || 'G-XXXXXXXXXX', // Replace with actual GA4 ID
+            measurementId: options.measurementId || 'G-XXXXXXXXXX', // Replace with your actual GA4 measurement ID
             dataLayerName: options.dataLayerName || 'dataLayer',
             consentMode: true,
             anonymizeIp: true,
@@ -627,7 +627,7 @@ let portfolioAnalytics;
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize with placeholder measurement ID - replace with actual GA4 property ID
     portfolioAnalytics = new PortfolioAnalytics({
-        measurementId: 'G-XXXXXXXXXX' // Replace with your actual GA4 measurement ID
+        measurementId: 'G-XXXXXXXXXX' // TODO: Replace with your actual GA4 measurement ID
     });
     
     // Make analytics available globally for cookie consent integration

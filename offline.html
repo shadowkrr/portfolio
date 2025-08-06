@@ -145,12 +145,198 @@
             color: #ffd700;
             text-decoration: none;
             font-weight: 500;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
         
         .cached-pages a:hover {
-            text-decoration: underline;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .cache-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .cache-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .cache-stat {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .cache-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        
+        .cache-stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+        
+        .sync-status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .sync-status.syncing {
+            background: rgba(33, 150, 243, 0.2);
+            border-left: 4px solid #2196F3;
+        }
+        
+        .sync-status.error {
+            background: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid #F44336;
+        }
+        
+        .sync-status.success {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .offline-features {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffd700;
+        }
+        
+        .feature-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+        
+        .debug-panel {
+            position: fixed;
+            top: 50px;
+            right: 20px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1000;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .debug-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+        
+        .debug-toggle:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .debug-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .debug-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .debug-actions .retry-button {
+            font-size: 0.8rem;
+            padding: 8px 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .debug-panel {
+                top: 60px;
+                right: 10px;
+                left: 10px;
+                width: auto;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .offline-features {
+                padding: 15px;
+            }
         }
     </style>
+    
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
     <div class="offline-container">
@@ -171,7 +357,7 @@
         
         <div class="cached-pages">
             <h3>📋 キャッシュされたページ</h3>
-            <ul>
+            <ul id="cachedPagesList">
                 <li><a href="/">🏠 ホーム</a></li>
                 <li><a href="#works">💼 作品</a></li>
                 <li><a href="#about">👤 プロフィール</a></li>
@@ -179,9 +365,77 @@
                 <li><a href="#contact">📞 お問い合わせ</a></li>
             </ul>
         </div>
+        
+        <div class="cache-info">
+            <h3>💾 キャッシュ情報</h3>
+            <div class="cache-stats" id="cacheStats">
+                <div class="cache-stat">
+                    <div class="cache-stat-value" id="totalCached">-</div>
+                    <div class="cache-stat-label">キャッシュ済み</div>
+                </div>
+                <div class="cache-stat">
+                    <div class="cache-stat-value" id="lastSync">-</div>
+                    <div class="cache-stat-label">最終同期</div>
+                </div>
+                <div class="cache-stat">
+                    <div class="cache-stat-value" id="cacheSize">-</div>
+                    <div class="cache-stat-label">キャッシュ容量</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sync-status" id="syncStatus" style="display: none;"></div>
+        
+        <!-- Offline Features -->
+        <div class="offline-features">
+            <h3>🛠 オフライン機能</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">💾</div>
+                    <div class="feature-title">キャッシュ済みコンテンツ</div>
+                    <div class="feature-desc">サイトの主要ページはオフラインでも閲覧可能</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📝</div>
+                    <div class="feature-title">フォームデータ保存</div>
+                    <div class="feature-desc">接続復旧時に自動送信されます</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-title">背景同期</div>
+                    <div class="feature-desc">接続時に最新データを自動取得</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">使用統計</div>
+                    <div class="feature-desc">パフォーマンス情報をリアルタイム表示</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Debug Panel -->
+        <div class="debug-panel" id="debugPanel" style="display: none;">
+            <h3>🔧 デバッグ情報</h3>
+            <div class="debug-info" id="debugInfo"></div>
+            <div class="debug-actions">
+                <button class="retry-button" onclick="clearCache()">キャッシュクリア</button>
+                <button class="retry-button" onclick="forceRefresh()">強制更新</button>
+                <button class="retry-button" onclick="exportLogs()">ログエクスポート</button>
+            </div>
+        </div>
+        
+        <!-- Toggle Debug -->
+        <button class="debug-toggle" onclick="toggleDebug()">🔧</button>
     </div>
 
     <script>
+        // Global error handler
+        window.addEventListener('error', (event) => {
+            console.warn('Offline page error:', event.error);
+        });
+        
+        // Performance monitoring
+        const startTime = performance.now();
         // Monitor connection status
         function updateConnectionStatus() {
             const statusIndicator = document.getElementById('statusIndicator');
@@ -230,11 +484,37 @@
         // Periodic connection check
         setInterval(updateConnectionStatus, 10000);
         
+        // Log page load performance
+        window.addEventListener('load', () => {
+            const loadTime = performance.now() - startTime;
+            console.log(`Offline page loaded in ${loadTime.toFixed(2)}ms`);
+        });
+        
         // Service Worker integration
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.addEventListener('message', event => {
                 if (event.data.type === 'CONNECTION_RESTORED') {
                     updateConnectionStatus();
+                } else if (event.data.type === 'CACHE_STATS') {
+                    updateCacheStats(event.data.stats);
+                } else if (event.data.type === 'SYNC_STATUS') {
+                    updateSyncStatus(event.data.status);
+                }
+            });
+            
+            // Request cache stats from service worker
+            navigator.serviceWorker.ready.then(registration => {
+                if (registration.active) {
+                    const messageChannel = new MessageChannel();
+                    messageChannel.port1.onmessage = (event) => {
+                        if (event.data.stats) {
+                            updateCacheStats(event.data.stats);
+                        }
+                    };
+                    registration.active.postMessage(
+                        { type: 'GET_CACHE_STATS' },
+                        [messageChannel.port2]
+                    );
                 }
             });
         }
@@ -243,9 +523,300 @@
         document.querySelectorAll('.cached-pages a[href^="#"]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                alert('セクションリンクは現在オフラインでは利用できません。メインページに戻って再度お試しください。');
+                showNotification('セクションリンクは現在オフラインでは利用できません。メインページに戻って再度お試しください。', 'warning');
             });
         });
+        
+        // Update cache statistics
+        function updateCacheStats(stats) {
+            const totalCached = document.getElementById('totalCached');
+            const lastSync = document.getElementById('lastSync');
+            const cacheSize = document.getElementById('cacheSize');
+            
+            if (totalCached) {
+                totalCached.textContent = stats.totalRequests || 0;
+            }
+            
+            if (lastSync) {
+                const lastSyncTime = stats.lastSync ? 
+                    formatRelativeTime(stats.lastSync) : '未同期';
+                lastSync.textContent = lastSyncTime;
+            }
+            
+            if (cacheSize) {
+                cacheSize.textContent = formatBytes(stats.cacheSize || 0);
+            }
+        }
+        
+        // Update sync status
+        function updateSyncStatus(status) {
+            const syncStatus = document.getElementById('syncStatus');
+            if (!syncStatus) return;
+            
+            syncStatus.style.display = 'block';
+            syncStatus.className = `sync-status ${status.type}`;
+            
+            switch (status.type) {
+                case 'syncing':
+                    syncStatus.innerHTML = '🔄 データを同期中...';
+                    break;
+                case 'success':
+                    syncStatus.innerHTML = '✅ 同期が完了しました';
+                    setTimeout(() => {
+                        syncStatus.style.display = 'none';
+                    }, 3000);
+                    break;
+                case 'error':
+                    syncStatus.innerHTML = `❌ 同期エラー: ${status.message}`;
+                    break;
+            }
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                color: white;
+                font-size: 14px;
+                z-index: 10000;
+                max-width: 300px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            // Set background based on type
+            const colors = {
+                info: '#2196F3',
+                warning: '#FF9800',
+                error: '#F44336',
+                success: '#4CAF50'
+            };
+            notification.style.background = colors[type] || colors.info;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 5000);
+        }
+        
+        // Format relative time
+        function formatRelativeTime(timestamp) {
+            const now = Date.now();
+            const diff = now - timestamp;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            
+            if (days > 0) return `${days}日前`;
+            if (hours > 0) return `${hours}時間前`;
+            if (minutes > 0) return `${minutes}分前`;
+            return '今';
+        }
+        
+        // Format bytes
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Load cached pages list dynamically
+        async function loadCachedPages() {
+            if ('caches' in window) {
+                try {
+                    const cacheNames = await caches.keys();
+                    const cachedUrls = new Set();
+                    
+                    for (const cacheName of cacheNames) {
+                        const cache = await caches.open(cacheName);
+                        const keys = await cache.keys();
+                        keys.forEach(request => {
+                            if (request.url.startsWith(window.location.origin)) {
+                                cachedUrls.add(request.url);
+                            }
+                        });
+                    }
+                    
+                    // Update cache stats
+                    updateCacheStats({
+                        totalRequests: cachedUrls.size,
+                        cacheSize: await estimateCacheSize()
+                    });
+                    
+                } catch (error) {
+                    console.warn('Could not load cached pages:', error);
+                }
+            }
+        }
+        
+        // Estimate cache size
+        async function estimateCacheSize() {
+            if ('navigator' in window && 'storage' in navigator && 'estimate' in navigator.storage) {
+                try {
+                    const estimate = await navigator.storage.estimate();
+                    return estimate.usage || 0;
+                } catch (error) {
+                    console.warn('Could not estimate cache size:', error);
+                }
+            }
+            return 0;
+        }
+        
+        // Initialize
+        loadCachedPages();
+        updateDebugInfo();
+        
+        // Debug functionality
+        let debugLogs = [];
+        
+        function toggleDebug() {
+            const panel = document.getElementById('debugPanel');
+            if (panel.style.display === 'none' || !panel.style.display) {
+                panel.style.display = 'block';
+                updateDebugInfo();
+            } else {
+                panel.style.display = 'none';
+            }
+        }
+        
+        function updateDebugInfo() {
+            const debugInfo = document.getElementById('debugInfo');
+            if (!debugInfo) return;
+            
+            const info = {
+                timestamp: new Date().toISOString(),
+                online: navigator.onLine,
+                userAgent: navigator.userAgent.substring(0, 50) + '...',
+                serviceWorker: 'serviceWorker' in navigator,
+                caches: 'caches' in window,
+                indexedDB: 'indexedDB' in window,
+                notifications: 'Notification' in window ? Notification.permission : 'unsupported',
+                storage: 'storage' in navigator,
+                connection: navigator.connection ? {
+                    effectiveType: navigator.connection.effectiveType,
+                    downlink: navigator.connection.downlink,
+                    rtt: navigator.connection.rtt
+                } : 'unknown',
+                memory: performance.memory ? {
+                    used: Math.round(performance.memory.usedJSHeapSize / 1024 / 1024) + 'MB',
+                    total: Math.round(performance.memory.totalJSHeapSize / 1024 / 1024) + 'MB',
+                    limit: Math.round(performance.memory.jsHeapSizeLimit / 1024 / 1024) + 'MB'
+                } : 'unknown'
+            };
+            
+            debugInfo.textContent = JSON.stringify(info, null, 2);
+        }
+        
+        function clearCache() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.ready.then(registration => {
+                    const messageChannel = new MessageChannel();
+                    messageChannel.port1.onmessage = (event) => {
+                        if (event.data.success) {
+                            showNotification('キャッシュがクリアされました', 'success');
+                            setTimeout(() => window.location.reload(), 1000);
+                        } else {
+                            showNotification('キャッシュクリアに失敗しました', 'error');
+                        }
+                    };
+                    
+                    registration.active.postMessage(
+                        { type: 'CLEAR_CACHE' },
+                        [messageChannel.port2]
+                    );
+                });
+            } else {
+                showNotification('Service Workerがサポートされていません', 'warning');
+            }
+        }
+        
+        function forceRefresh() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.ready.then(registration => {
+                    return registration.update();
+                }).then(() => {
+                    showNotification('強制更新を実行しています...', 'info');
+                    setTimeout(() => window.location.reload(true), 1000);
+                });
+            } else {
+                window.location.reload(true);
+            }
+        }
+        
+        function exportLogs() {
+            const logs = {
+                timestamp: new Date().toISOString(),
+                url: window.location.href,
+                userAgent: navigator.userAgent,
+                debugLogs: debugLogs,
+                performance: {
+                    navigation: performance.getEntriesByType('navigation')[0],
+                    memory: performance.memory
+                },
+                storage: estimateCacheSize()
+            };
+            
+            const blob = new Blob([JSON.stringify(logs, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `offline-debug-${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showNotification('デバッグログをエクスポートしました', 'success');
+        }
+        
+        // Log important events
+        function logEvent(type, data) {
+            debugLogs.push({
+                timestamp: Date.now(),
+                type: type,
+                data: data
+            });
+            
+            // Keep only last 100 logs
+            if (debugLogs.length > 100) {
+                debugLogs.shift();
+            }
+        }
+        
+        // Update debug info every 5 seconds
+        setInterval(updateDebugInfo, 5000);
+        
+        // Log page events
+        window.addEventListener('load', () => logEvent('page_load', performance.now()));
+        window.addEventListener('beforeunload', () => logEvent('page_unload', performance.now()));
+        window.addEventListener('online', () => logEvent('connection_online', Date.now()));
+        window.addEventListener('offline', () => logEvent('connection_offline', Date.now()));
+        
+        // Add animation keyframes
+        const animationStyles = document.createElement('style');
+        animationStyles.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(animationStyles);
     </script>
 </body>
 </html>

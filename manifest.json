@@ -13,6 +13,18 @@
     
     "icons": [
         {
+            "src": "img/icons/icon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icons/icon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
             "src": "img/icons/icon-72x72.png",
             "sizes": "72x72",
             "type": "image/png",
@@ -43,10 +55,22 @@
             "purpose": "any"
         },
         {
+            "src": "img/icons/icon-180x180.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
             "src": "img/icons/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
+        },
+        {
+            "src": "img/icons/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "img/icons/icon-384x384.png",
@@ -59,6 +83,12 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
+        },
+        {
+            "src": "img/icons/icon-1024x1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "purpose": "any"
         }
     ],
     
@@ -130,5 +160,31 @@
             "protocol": "mailto",
             "url": "/#contact?mailto=%s"
         }
+    ],
+    
+    "share_target": {
+        "action": "/#contact",
+        "method": "GET",
+        "params": {
+            "title": "subject",
+            "text": "message"
+        }
+    },
+    
+    "file_handlers": [
+        {
+            "action": "/",
+            "accept": {
+                "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp"],
+                "text/plain": [".txt"],
+                "application/json": [".json"]
+            }
+        }
+    ],
+    
+    "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
+    
+    "scope_extensions": [
+        {"origin": "*.shadowkrr.github.io"}
     ]
 }
