@@ -1,0 +1,134 @@
+{
+    "name": "SHADOWKRR Portfolio - フリーランスエンジニア",
+    "short_name": "SHADOWKRR",
+    "description": "フリーランスエンジニア shadowkrr のポートフォリオサイト。Web開発、モバイルアプリ開発、UI/UXデザインなどの技術スキルと実績を紹介。",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1a1a",
+    "theme_color": "#667eea",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "ja",
+    "dir": "ltr",
+    
+    "icons": [
+        {
+            "src": "img/icons/icon-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icons/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icons/icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icons/icon-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icons/icon-152x152.png",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "img/icons/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    
+    "shortcuts": [
+        {
+            "name": "作品を見る",
+            "short_name": "Works",
+            "description": "プログラムや制作物の一覧を表示",
+            "url": "/#works",
+            "icons": [
+                {
+                    "src": "img/icons/shortcut-works.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "プロフィール",
+            "short_name": "About",
+            "description": "フリーランスエンジニアについて",
+            "url": "/#about",
+            "icons": [
+                {
+                    "src": "img/icons/shortcut-about.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "お問い合わせ",
+            "short_name": "Contact",
+            "description": "お気軽にお問い合わせください",
+            "url": "/#contact",
+            "icons": [
+                {
+                    "src": "img/icons/shortcut-contact.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                }
+            ]
+        }
+    ],
+    
+    "categories": [
+        "productivity",
+        "business",
+        "portfolio",
+        "developer"
+    ],
+    
+    "prefer_related_applications": false,
+    
+    "capture_links": "existing-client-navigate",
+    
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    },
+    
+    "edge_side_panel": {
+        "preferred_width": 400
+    },
+    
+    "handle_links": "preferred",
+    
+    "protocol_handlers": [
+        {
+            "protocol": "mailto",
+            "url": "/#contact?mailto=%s"
+        }
+    ]
+}

@@ -350,27 +350,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Contact Form Handler
-    const contactForm = document.querySelector('.contact-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData);
-            
-            // Here you would normally send the data to a server
-            console.log('Form submitted:', data);
-            
-            // Show success message
-            alert('Thank you for your message! I will get back to you soon.');
-            
-            // Reset form
-            contactForm.reset();
-        });
-    }
+    // Contact Form Handler - Now handled by contact-form.js
+    // The contact form functionality has been moved to a dedicated module
 
     // Back to Top Button
     const backToTopBtn = document.getElementById('backToTop');
@@ -441,6 +422,344 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 600);
         });
     });
+
+    // Keyboard Navigation Support
+    function setupKeyboardNavigation() {
+        // Handle hamburger menu keyboard navigation
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (hamburger) {
+            hamburger.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    navMenu.classList.toggle('active');
+                    this.classList.toggle('active');
+                }
+            });
+        }
+
+        // Handle work card keyboard navigation
+        const workCards = document.querySelectorAll('.work-card');
+        workCards.forEach(card => {
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    // Simulate click on the work link inside the card
+                    const workLink = this.querySelector('.work-link');
+                    if (workLink) {
+                        workLink.click();
+                    }
+                }
+            });
+        });
+
+        // Handle filter buttons keyboard navigation with arrow keys
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach((button, index) => {
+            button.addEventListener('keydown', function(e) {
+                let targetIndex = index;
+                
+                switch(e.key) {
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        targetIndex = (index + 1) % filterButtons.length;
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        targetIndex = (index - 1 + filterButtons.length) % filterButtons.length;
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        targetIndex = 0;
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        targetIndex = filterButtons.length - 1;
+                        break;
+                    case 'Enter':
+                    case ' ':
+                        e.preventDefault();
+                        button.click();
+                        return;
+                }
+                
+                if (targetIndex !== index) {
+                    filterButtons[targetIndex].focus();
+                }
+            });
+        });
+
+        // Update aria-pressed attributes for filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Reset all buttons
+                filterButtons.forEach(btn => btn.setAttribute('aria-pressed', 'false'));
+                // Set current button as pressed
+                this.setAttribute('aria-pressed', 'true');
+            });
+        });
+
+        // Skip link functionality
+        const skipLink = document.querySelector('.skip-link');
+        if (skipLink) {
+            skipLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.focus();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+
+        // Escape key handling for mobile menu
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    hamburger.focus();
+                }
+            }
+        });
+
+        // Announce dynamic content changes for screen readers
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+
+        // Add announcement for filter changes
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filterType = this.textContent.trim();
+                announceToScreenReader(`Filtering projects by ${filterType}`);
+            });
+        });
+
+        // Dark mode toggle keyboard support
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        }
+    }
+
+    // Initialize keyboard navigation
+    setupKeyboardNavigation();
+
+    // Mobile UX Optimizations
+    function setupMobileUX() {
+        // Touch device detection
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (isTouchDevice) {
+            document.body.classList.add('touch-device');
+            
+            // Work card touch interactions
+            const workCards = document.querySelectorAll('.work-card');
+            workCards.forEach(card => {
+                let touchStartTime = 0;
+                let touchStartX = 0;
+                let touchStartY = 0;
+                
+                card.addEventListener('touchstart', function(e) {
+                    touchStartTime = Date.now();
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+                
+                card.addEventListener('touchend', function(e) {
+                    const touchEndTime = Date.now();
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const touchEndY = e.changedTouches[0].clientY;
+                    
+                    const touchDuration = touchEndTime - touchStartTime;
+                    const touchDistanceX = Math.abs(touchEndX - touchStartX);
+                    const touchDistanceY = Math.abs(touchEndY - touchStartY);
+                    
+                    // If it's a tap (short duration, small movement)
+                    if (touchDuration < 300 && touchDistanceX < 10 && touchDistanceY < 10) {
+                        e.preventDefault();
+                        
+                        // Toggle card flip
+                        if (this.classList.contains('flipped')) {
+                            // If already flipped, navigate to link
+                            const workLink = this.querySelector('.work-link');
+                            if (workLink) {
+                                window.open(workLink.href, '_blank', 'noopener,noreferrer');
+                            }
+                        } else {
+                            // Flip the card
+                            this.classList.add('flipped');
+                            
+                            // Remove flip from other cards
+                            workCards.forEach(otherCard => {
+                                if (otherCard !== this) {
+                                    otherCard.classList.remove('flipped');
+                                }
+                            });
+                        }
+                    }
+                }, { passive: false });
+            });
+            
+            // Add swipe indicators to work cards
+            workCards.forEach(card => {
+                if (!card.querySelector('.swipe-indicator')) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'swipe-indicator';
+                    indicator.textContent = 'Tap to flip';
+                    card.appendChild(indicator);
+                }
+            });
+            
+            // Improved form focus for mobile
+            const formInputs = document.querySelectorAll('.form-control');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    // Scroll input into view on focus
+                    setTimeout(() => {
+                        this.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center',
+                            inline: 'nearest'
+                        });
+                    }, 300);
+                });
+            });
+        }
+        
+        // Viewport height fix for mobile browsers
+        function setViewportHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setViewportHeight();
+        window.addEventListener('resize', setViewportHeight);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(setViewportHeight, 500);
+        });
+        
+        // Improved scroll behavior for mobile
+        let ticking = false;
+        let lastScrollY = 0;
+        
+        function updateScrollDirection() {
+            const scrollY = window.pageYOffset;
+            const navbar = document.getElementById('navbar');
+            
+            if (navbar) {
+                if (scrollY > lastScrollY && scrollY > 100) {
+                    // Scrolling down
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    navbar.style.transform = 'translateY(0)';
+                }
+            }
+            
+            lastScrollY = scrollY;
+            ticking = false;
+        }
+        
+        function requestScrollUpdate() {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollDirection);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+        
+        // Touch-friendly theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle && isTouchDevice) {
+            let tapTimeout;
+            
+            themeToggle.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(0.9)';
+                
+                tapTimeout = setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            }, { passive: false });
+            
+            themeToggle.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                clearTimeout(tapTimeout);
+                this.style.transform = 'scale(1)';
+                
+                // Trigger theme change
+                this.click();
+            }, { passive: false });
+        }
+        
+        // Improve mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (hamburger && navMenu && isTouchDevice) {
+            // Close menu when clicking outside
+            document.addEventListener('touchstart', function(e) {
+                if (navMenu.classList.contains('active') && 
+                    !navMenu.contains(e.target) && 
+                    !hamburger.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Close menu when clicking a nav link
+            const navLinks = navMenu.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('touchend', function() {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+        
+        // Performance optimizations for mobile
+        if (isTouchDevice) {
+            // Disable particles on mobile for better performance
+            const particlesContainer = document.getElementById('particles-js');
+            if (particlesContainer && window.innerWidth < 768) {
+                particlesContainer.style.display = 'none';
+            }
+            
+            // Reduce AOS animations on mobile
+            AOS.refresh({
+                duration: 600,
+                easing: 'ease-out',
+                once: true,
+                mirror: false
+            });
+        }
+    }
+    
+    // Initialize mobile UX
+    setupMobileUX();
 
     // Initialize everything
     console.log('Portfolio site initialized successfully!');

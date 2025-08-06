@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://api.emailjs.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  
+  <meta property='og:type' content='website'>
+  <meta property='og:title' content='プライバシーポリシー - SHADOWKRR Portfolio'>
+  <meta property='og:url' content='https://shadowkrr.github.io/portfolio/privacy-policy.html'>
+  <meta property='og:description' content='SHADOWKRR ポートフォリオサイトのプライバシーポリシー'>
+  <meta property="og:image" content="img/ogp.png">
+  <meta name="description" content="SHADOWKRR ポートフォリオサイトのプライバシーポリシー。個人情報の取り扱い、クッキーの使用、連絡先について詳しく説明しています。" />
+  <title>プライバシーポリシー - SHADOWKRR Portfolio</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link href="css/reset.css" media="all" rel="stylesheet" type="text/css" />
+  <link href="css/modern-style.css" media="all" rel="stylesheet" type="text/css" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" />
+  <link rel="canonical" href="https://shadowkrr.github.io/portfolio/privacy-policy.html" />
+  
+  <style>
+    /* Privacy Policy Specific Styles */
+    .privacy-policy {
+      padding: 120px 0 80px;
+      background: var(--bg-primary);
+    }
+    
+    .privacy-header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid var(--bg-secondary);
+    }
+    
+    .privacy-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+    
+    .privacy-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+    
+    .last-updated {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    
+    .privacy-content {
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    
+    .privacy-section {
+      margin-bottom: 40px;
+      background: var(--bg-primary);
+      border: 1px solid var(--bg-secondary);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+    
+    .privacy-section:hover {
+      border-color: var(--primary-color);
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
+    }
+    
+    .privacy-section h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .privacy-section h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 25px 0 15px 0;
+      color: var(--text-primary);
+    }
+    
+    .privacy-section p {
+      margin-bottom: 15px;
+      color: var(--text-secondary);
+    }
+    
+    .privacy-section ul, .privacy-section ol {
+      margin: 15px 0;
+      padding-left: 25px;
+    }
+    
+    .privacy-section li {
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+    
+    .privacy-section li strong {
+      color: var(--text-primary);
+    }
+    
+    .privacy-contact {
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+    }
+    
+    .privacy-contact h2,
+    .privacy-contact h3,
+    .privacy-contact p,
+    .privacy-contact li {
+      color: white;
+    }
+    
+    .privacy-contact a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      transition: var(--transition);
+    }
+    
+    .privacy-contact a:hover {
+      color: white;
+      border-bottom-color: white;
+    }
+    
+    .table-responsive {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.9rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--bg-secondary);
+    }
+    
+    .data-table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .data-table td {
+      color: var(--text-secondary);
+    }
+    
+    .data-table tr:hover {
+      background: rgba(102, 126, 234, 0.03);
+    }
+    
+    .highlight-box {
+      background: rgba(102, 126, 234, 0.1);
+      border-left: 4px solid var(--primary-color);
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .highlight-box p {
+      margin: 0;
+      color: var(--text-primary);
+    }
+    
+    .privacy-nav {
+      position: sticky;
+      top: 100px;
+      background: var(--bg-primary);
+      border: 1px solid var(--bg-secondary);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .privacy-nav h3 {
+      margin: 0 0 15px 0;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+    
+    .privacy-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .privacy-nav li {
+      margin-bottom: 8px;
+    }
+    
+    .privacy-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      display: block;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+    
+    .privacy-nav a:hover {
+      color: var(--primary-color);
+      background: rgba(102, 126, 234, 0.1);
+    }
+    
+    .back-to-site {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 30px;
+      transition: var(--transition);
+    }
+    
+    .back-to-site:hover {
+      color: var(--accent-color);
+    }
+    
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .privacy-policy {
+        padding: 100px 0 60px;
+      }
+      
+      .privacy-section {
+        padding: 20px;
+        margin-bottom: 25px;
+      }
+      
+      .privacy-nav {
+        position: relative;
+        top: auto;
+        margin-bottom: 30px;
+      }
+      
+      .data-table {
+        font-size: 0.8rem;
+      }
+      
+      .data-table th,
+      .data-table td {
+        padding: 8px 10px;
+      }
+    }
+    
+    /* Language Toggle */
+    .lang-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--bg-primary);
+      border: 1px solid var(--bg-secondary);
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-size: 0.9rem;
+      z-index: 1000;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .lang-toggle select {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    
+    /* Dark Mode Specific Styles */
+    body.dark-mode .privacy-section {
+      background: var(--bg-primary);
+      border-color: var(--bg-secondary);
+    }
+    
+    body.dark-mode .data-table th {
+      background: var(--bg-secondary);
+    }
+    
+    body.dark-mode .privacy-nav {
+      background: var(--bg-primary);
+      border-color: var(--bg-secondary);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip to main content link -->
+  <a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
+
+  <!-- Language Toggle -->
+  <div class="lang-toggle">
+    <select id="language-selector" aria-label="言語を選択">
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="ダークモード切り替え" title="ダークモード切り替え">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <main id="main-content" class="privacy-policy">
+    <div class="container">
+      <a href="index.html" class="back-to-site">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        ポートフォリオサイトに戻る
+      </a>
+
+      <div class="privacy-header">
+        <h1 class="privacy-title" id="privacy-title">プライバシーポリシー</h1>
+        <p class="privacy-subtitle" id="privacy-subtitle">個人情報保護方針</p>
+        <p class="last-updated" id="last-updated">最終更新日: 2024年1月1日</p>
+      </div>
+
+      <!-- Navigation Menu -->
+      <div class="privacy-nav">
+        <h3 id="nav-title">目次</h3>
+        <ul id="nav-menu">
+          <li><a href="#overview">概要</a></li>
+          <li><a href="#information-collection">収集する情報</a></li>
+          <li><a href="#information-usage">情報の使用方法</a></li>
+          <li><a href="#cookies">クッキーについて</a></li>
+          <li><a href="#third-party">第三者サービス</a></li>
+          <li><a href="#data-security">データセキュリティ</a></li>
+          <li><a href="#your-rights">お客様の権利</a></li>
+          <li><a href="#children">18歳未満の利用者</a></li>
+          <li><a href="#changes">ポリシーの変更</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+
+      <div class="privacy-content">
+        <!-- Overview Section -->
+        <section id="overview" class="privacy-section">
+          <h2><i class="fas fa-info-circle" aria-hidden="true"></i><span id="overview-title">概要</span></h2>
+          <div id="overview-content">
+            <p>SHADOWKRR（以下、「当サイト」）は、お客様のプライバシーを尊重し、個人情報の保護に努めております。本プライバシーポリシーでは、当サイトがどのような情報を収集し、どのように使用するかについて説明いたします。</p>
+            
+            <div class="highlight-box">
+              <p><strong>重要:</strong> 当サイトを利用することで、本プライバシーポリシーに同意したものとみなされます。</p>
+            </div>
+            
+            <p>本ポリシーは、以下の法規制に準拠しています：</p>
+            <ul>
+              <li>個人情報保護法（日本）</li>
+              <li>GDPR（EU一般データ保護規則）</li>
+              <li>CCPA（カリフォルニア州消費者プライバシー法）</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Information Collection Section -->
+        <section id="information-collection" class="privacy-section">
+          <h2><i class="fas fa-database" aria-hidden="true"></i><span id="collection-title">収集する情報</span></h2>
+          <div id="collection-content">
+            <h3>自動的に収集される情報</h3>
+            <p>当サイトでは、以下の情報を自動的に収集する場合があります：</p>
+            
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>情報の種類</th>
+                    <th>収集方法</th>
+                    <th>使用目的</th>
+                    <th>保存期間</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>IPアドレス</td>
+                    <td>サーバーログ</td>
+                    <td>アクセス解析・セキュリティ</td>
+                    <td>30日</td>
+                  </tr>
+                  <tr>
+                    <td>ブラウザ情報</td>
+                    <td>HTTP ヘッダー</td>
+                    <td>サイト最適化</td>
+                    <td>セッション中</td>
+                  </tr>
+                  <tr>
+                    <td>デバイス情報</td>
+                    <td>JavaScript</td>
+                    <td>レスポンシブ対応</td>
+                    <td>セッション中</td>
+                  </tr>
+                  <tr>
+                    <td>アクセス時刻</td>
+                    <td>サーバーログ</td>
+                    <td>アクセス解析</td>
+                    <td>12ヶ月</td>
+                  </tr>
+                  <tr>
+                    <td>参照元URL</td>
+                    <td>HTTP リファラー</td>
+                    <td>トラフィック分析</td>
+                    <td>6ヶ月</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>お客様から提供される情報</h3>
+            <p>コンタクトフォームを通じて以下の情報を収集します：</p>
+            <ul>
+              <li><strong>お名前:</strong> 必須項目（返信のため）</li>
+              <li><strong>メールアドレス:</strong> 必須項目（返信のため）</li>
+              <li><strong>件名:</strong> 必須項目（内容分類のため）</li>
+              <li><strong>メッセージ内容:</strong> 必須項目（お問い合わせ対応のため）</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Information Usage Section -->
+        <section id="information-usage" class="privacy-section">
+          <h2><i class="fas fa-cogs" aria-hidden="true"></i><span id="usage-title">情報の使用方法</span></h2>
+          <div id="usage-content">
+            <p>収集した情報は以下の目的で使用します：</p>
+            
+            <h3>必要な処理（法的根拠: 正当な利益）</h3>
+            <ul>
+              <li>サイトの運営とメンテナンス</li>
+              <li>セキュリティの確保</li>
+              <li>技術的な問題の解決</li>
+              <li>法的要件への対応</li>
+            </ul>
+
+            <h3>サイト改善（法的根拠: 正当な利益）</h3>
+            <ul>
+              <li>ユーザーエクスペリエンスの向上</li>
+              <li>コンテンツの最適化</li>
+              <li>パフォーマンスの改善</li>
+              <li>新機能の開発</li>
+            </ul>
+
+            <h3>コミュニケーション（法的根拠: 同意）</h3>
+            <ul>
+              <li>お問い合わせへの回答</li>
+              <li>重要な通知の送信</li>
+              <li>フィードバックの収集</li>
+            </ul>
+
+            <div class="highlight-box">
+              <p><strong>データの匿名化:</strong> 統計分析に使用される際は、個人を特定できない形で処理されます。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cookies Section -->
+        <section id="cookies" class="privacy-section">
+          <h2><i class="fas fa-cookie-bite" aria-hidden="true"></i><span id="cookies-title">クッキーについて</span></h2>
+          <div id="cookies-content">
+            <p>当サイトでは、以下の種類のクッキーを使用します：</p>
+
+            <h3>必須クッキー</h3>
+            <p>サイトの基本機能に必要なクッキーです。これらは無効にできません。</p>
+            <ul>
+              <li><strong>セッション管理:</strong> ユーザーセッションの維持</li>
+              <li><strong>セキュリティ:</strong> CSRF攻撃の防止</li>
+              <li><strong>設定保存:</strong> ダークモードなどの設定</li>
+            </ul>
+
+            <h3>分析クッキー（オプション）</h3>
+            <p>サイトの使用状況を理解するためのクッキーです。</p>
+            <ul>
+              <li><strong>Google Analytics:</strong> アクセス解析</li>
+              <li><strong>パフォーマンス測定:</strong> ページ読み込み速度</li>
+              <li><strong>ユーザー行動:</strong> サイト内での行動分析</li>
+            </ul>
+
+            <h3>機能性クッキー（オプション）</h3>
+            <p>サイトの機能を拡張するクッキーです。</p>
+            <ul>
+              <li><strong>設定記憶:</strong> ユーザーの好み設定</li>
+              <li><strong>言語設定:</strong> 表示言語の記憶</li>
+              <li><strong>フォーム保存:</strong> 入力中データの一時保存</li>
+            </ul>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>クッキー名</th>
+                    <th>目的</th>
+                    <th>有効期限</th>
+                    <th>種類</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>portfolio_theme</td>
+                    <td>テーマ設定保存</td>
+                    <td>1年</td>
+                    <td>必須</td>
+                  </tr>
+                  <tr>
+                    <td>portfolio_lang</td>
+                    <td>言語設定保存</td>
+                    <td>1年</td>
+                    <td>機能性</td>
+                  </tr>
+                  <tr>
+                    <td>_ga</td>
+                    <td>Google Analytics</td>
+                    <td>2年</td>
+                    <td>分析</td>
+                  </tr>
+                  <tr>
+                    <td>_ga_*</td>
+                    <td>Google Analytics 4</td>
+                    <td>2年</td>
+                    <td>分析</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Third Party Services Section -->
+        <section id="third-party" class="privacy-section">
+          <h2><i class="fas fa-external-link-alt" aria-hidden="true"></i><span id="third-party-title">第三者サービス</span></h2>
+          <div id="third-party-content">
+            <p>当サイトでは以下の第三者サービスを使用しています：</p>
+
+            <h3>Google Analytics 4</h3>
+            <p><strong>提供者:</strong> Google LLC</p>
+            <p><strong>目的:</strong> サイトアクセス解析</p>
+            <p><strong>データの場所:</strong> アメリカ合衆国</p>
+            <p><strong>プライバシーポリシー:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a></p>
+            <p><strong>オプトアウト:</strong> <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out</a></p>
+
+            <h3>EmailJS</h3>
+            <p><strong>提供者:</strong> EmailJS</p>
+            <p><strong>目的:</strong> お問い合わせフォーム機能</p>
+            <p><strong>データの場所:</strong> アメリカ合衆国</p>
+            <p><strong>プライバシーポリシー:</strong> <a href="https://www.emailjs.com/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">EmailJS Privacy Policy</a></p>
+
+            <h3>GitHub Pages</h3>
+            <p><strong>提供者:</strong> GitHub Inc.</p>
+            <p><strong>目的:</strong> ウェブサイトホスティング</p>
+            <p><strong>データの場所:</strong> アメリカ合衆国</p>
+            <p><strong>プライバシーポリシー:</strong> <a href="https://docs.github.com/en/github/site-policy/github-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a></p>
+
+            <h3>CDN サービス</h3>
+            <ul>
+              <li><strong>Google Fonts:</strong> フォント提供</li>
+              <li><strong>Cloudflare:</strong> コンテンツ配信</li>
+              <li><strong>unpkg:</strong> JavaScriptライブラリ配信</li>
+            </ul>
+
+            <div class="highlight-box">
+              <p><strong>国際データ転送:</strong> これらのサービスは適切なセーフガード措置を講じており、GDPR Article 46に準拠しています。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Data Security Section -->
+        <section id="data-security" class="privacy-section">
+          <h2><i class="fas fa-shield-alt" aria-hidden="true"></i><span id="security-title">データセキュリティ</span></h2>
+          <div id="security-content">
+            <p>お客様の個人情報を保護するため、以下のセキュリティ措置を講じています：</p>
+
+            <h3>技術的保護措置</h3>
+            <ul>
+              <li><strong>HTTPS暗号化:</strong> すべての通信を暗号化</li>
+              <li><strong>セキュリティヘッダー:</strong> XSS、CSRF攻撃の防止</li>
+              <li><strong>Content Security Policy:</strong> 不正スクリプト実行の防止</li>
+              <li><strong>定期的な更新:</strong> セキュリティパッチの適用</li>
+            </ul>
+
+            <h3>運用上の保護措置</h3>
+            <ul>
+              <li><strong>アクセス制限:</strong> 必要最小限のアクセス権限</li>
+              <li><strong>ログ監視:</strong> 不正アクセスの検出</li>
+              <li><strong>データ最小化:</strong> 必要最小限の情報のみ収集</li>
+              <li><strong>定期的な監査:</strong> セキュリティ体制の見直し</li>
+            </ul>
+
+            <h3>インシデント対応</h3>
+            <p>万が一のデータ漏洩が発生した場合：</p>
+            <ol>
+              <li>72時間以内に監督当局に報告</li>
+              <li>高リスクの場合は個人に通知</li>
+              <li>被害の最小化と再発防止策の実施</li>
+              <li>透明性のある報告書の公開</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Your Rights Section -->
+        <section id="your-rights" class="privacy-section">
+          <h2><i class="fas fa-user-shield" aria-hidden="true"></i><span id="rights-title">お客様の権利</span></h2>
+          <div id="rights-content">
+            <p>お客様には以下の権利があります：</p>
+
+            <h3>GDPR・CCPA に基づく権利</h3>
+            <ul>
+              <li><strong>アクセス権:</strong> 個人データの処理状況を知る権利</li>
+              <li><strong>訂正権:</strong> 不正確な個人データの訂正を求める権利</li>
+              <li><strong>削除権（忘れられる権利）:</strong> 個人データの削除を求める権利</li>
+              <li><strong>処理制限権:</strong> 個人データの処理を制限する権利</li>
+              <li><strong>データポータビリティ権:</strong> データの移行を求める権利</li>
+              <li><strong>異議申立権:</strong> 処理に異議を申し立てる権利</li>
+              <li><strong>同意撤回権:</strong> いつでも同意を撤回する権利</li>
+            </ul>
+
+            <h3>権利の行使方法</h3>
+            <p>これらの権利を行使するには：</p>
+            <ol>
+              <li>本ページ下部のお問い合わせ方法で連絡</li>
+              <li>身元確認のための情報を提供</li>
+              <li>具体的な要求内容を明記</li>
+              <li>30日以内に対応いたします</li>
+            </ol>
+
+            <h3>クッキーの管理</h3>
+            <p>クッキーに関しては：</p>
+            <ul>
+              <li>ブラウザ設定でクッキーを無効化可能</li>
+              <li>サイト上のクッキー設定で管理可能</li>
+              <li>Google Analytics オプトアウト可能</li>
+              <li>Do Not Track 信号を尊重</li>
+            </ul>
+
+            <div class="highlight-box">
+              <p><strong>権利行使に関する重要な注意:</strong> 権利行使は無料ですが、明らかに根拠がない場合は合理的な手数料を請求することがあります。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Children Section -->
+        <section id="children" class="privacy-section">
+          <h2><i class="fas fa-child" aria-hidden="true"></i><span id="children-title">18歳未満の利用者</span></h2>
+          <div id="children-content">
+            <p>当サイトは一般向けのサイトであり、18歳未満の方からの個人情報を意図的に収集することはありません。</p>
+
+            <h3>保護者の方へ</h3>
+            <p>18歳未満のお子様が当サイトを利用する場合：</p>
+            <ul>
+              <li>保護者の監督の下でのご利用をお願いします</li>
+              <li>個人情報の提供前に保護者の同意が必要です</li>
+              <li>お子様の個人情報が収集された場合は直ちに削除いたします</li>
+            </ul>
+
+            <h3>発見時の対応</h3>
+            <p>18歳未満の方から個人情報を収集したことが判明した場合：</p>
+            <ol>
+              <li>直ちに該当データを削除</li>
+              <li>保護者への通知</li>
+              <li>再発防止策の実施</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Policy Changes Section -->
+        <section id="changes" class="privacy-section">
+          <h2><i class="fas fa-edit" aria-hidden="true"></i><span id="changes-title">ポリシーの変更</span></h2>
+          <div id="changes-content">
+            <p>本プライバシーポリシーは法令の変更やサービスの向上のため更新される場合があります。</p>
+
+            <h3>変更通知</h3>
+            <p>重要な変更がある場合：</p>
+            <ul>
+              <li>サイト上での目立つ通知</li>
+              <li>メール通知（連絡先をお持ちの場合）</li>
+              <li>30日間の事前告知期間</li>
+              <li>変更履歴の公開</li>
+            </ul>
+
+            <h3>変更の効力</h3>
+            <p>変更されたポリシーは：</p>
+            <ul>
+              <li>更新日から効力を持ちます</li>
+              <li>継続してサイトを利用することで同意したものとみなされます</li>
+              <li>重大な変更の場合は明示的な同意を求めます</li>
+            </ul>
+
+            <div class="highlight-box">
+              <p><strong>定期的な確認をお勧めします:</strong> 最新の情報を確認するため、定期的に本ポリシーをご覧ください。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="privacy-section privacy-contact">
+          <h2><i class="fas fa-envelope" aria-hidden="true"></i><span id="contact-title">お問い合わせ</span></h2>
+          <div id="contact-content">
+            <p>プライバシーポリシーに関するご質問やご意見がございましたら、お気軽にお問い合わせください。</p>
+
+            <h3>連絡先情報</h3>
+            <ul>
+              <li><strong>サイト管理者:</strong> SHADOWKRR</li>
+              <li><strong>メールアドレス:</strong> <a href="mailto:shadowkrr@gmail.com">shadowkrr@gmail.com</a></li>
+              <li><strong>ウェブサイト:</strong> <a href="https://shadowkrr.github.io/portfolio/">https://shadowkrr.github.io/portfolio/</a></li>
+              <li><strong>所在地:</strong> 日本</li>
+            </ul>
+
+            <h3>対応時間</h3>
+            <ul>
+              <li><strong>メール対応:</strong> 平日 10:00-18:00（日本時間）</li>
+              <li><strong>返信期間:</strong> 通常3営業日以内</li>
+              <li><strong>緊急時:</strong> セキュリティに関する緊急事項は24時間以内</li>
+            </ul>
+
+            <h3>監督機関</h3>
+            <p>データ保護に関する不満がある場合、以下の監督機関に申し立てができます：</p>
+            <ul>
+              <li><strong>日本:</strong> 個人情報保護委員会</li>
+              <li><strong>EU:</strong> 各加盟国のデータ保護監督機関</li>
+              <li><strong>カリフォルニア州:</strong> カリフォルニア州司法長官オフィス</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    
+    // Check for saved theme preference
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            localStorage.setItem('theme', 'light');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+    });
+
+    // Language toggle functionality
+    const languageSelector = document.getElementById('language-selector');
+    const translations = {
+      ja: {
+        // Privacy policy Japanese translations
+        title: 'プライバシーポリシー',
+        subtitle: '個人情報保護方針',
+        lastUpdated: '最終更新日: 2024年1月1日',
+        navTitle: '目次',
+        backToSite: 'ポートフォリオサイトに戻る',
+        // Section titles and content would go here...
+      },
+      en: {
+        // Privacy policy English translations
+        title: 'Privacy Policy',
+        subtitle: 'Data Protection Policy',
+        lastUpdated: 'Last Updated: January 1, 2024',
+        navTitle: 'Table of Contents',
+        backToSite: 'Back to Portfolio',
+        // Section titles and content would go here...
+      }
+    };
+
+    function updateLanguage(lang) {
+      document.documentElement.lang = lang;
+      
+      // Update basic elements
+      const elements = {
+        'privacy-title': 'title',
+        'privacy-subtitle': 'subtitle',
+        'last-updated': 'lastUpdated',
+        'nav-title': 'navTitle'
+      };
+      
+      Object.entries(elements).forEach(([id, key]) => {
+        const element = document.getElementById(id);
+        if (element && translations[lang] && translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // Update back to site link
+      const backLink = document.querySelector('.back-to-site');
+      if (backLink && translations[lang] && translations[lang].backToSite) {
+        backLink.innerHTML = `<i class="fas fa-arrow-left" aria-hidden="true"></i> ${translations[lang].backToSite}`;
+      }
+      
+      // Save language preference
+      localStorage.setItem('preferred_language', lang);
+    }
+
+    languageSelector.addEventListener('change', (e) => {
+      updateLanguage(e.target.value);
+    });
+
+    // Load saved language preference
+    const savedLang = localStorage.getItem('preferred_language') || 'ja';
+    languageSelector.value = savedLang;
+    updateLanguage(savedLang);
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('#nav-menu a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Add active state to navigation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const navLink = document.querySelector(`#nav-menu a[href="#${id}"]`);
+          
+          // Remove active class from all links
+          document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.classList.remove('active');
+          });
+          
+          // Add active class to current link
+          if (navLink) {
+            navLink.classList.add('active');
+          }
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '-20% 0px -70% 0px'
+    });
+
+    // Observe all sections
+    document.querySelectorAll('.privacy-section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
