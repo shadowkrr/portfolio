@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  
+  <meta property="og:title" content="しゃちぶっく - ケーススタディ | shadowkrr Portfolio">
+  <meta property="og:description" content="TEAM SHACHIファン向けアプリ開発のケーススタディ。課題解決から技術実装まで詳しく解説。">
+  <meta property="og:image" content="img/works/shachibook.png">
+  <meta name="description" content="TEAM SHACHIファン向けアプリ開発のケーススタディ。課題解決から技術実装まで詳しく解説。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shadowkrr.github.io/portfolio/case-study-shachibook.html">
+  <meta name="keywords" content="iOS,Swift,アプリ開発,TEAM SHACHI,ファンアプリ,モバイル開発,shadowkrr">
+  <meta name="author" content="shadowkrr">
+  <title>しゃちぶっく - ケーススタディ | shadowkrr Portfolio</title>
+  <link rel="canonical" href="https://shadowkrr.github.io/portfolio/case-study-shachibook.html">
+  
+  <!-- PWA Configuration -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SHADOWKRR">
+  <meta name="theme-color" content="#667eea">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="css/reset.css" rel="stylesheet">
+  <link href="css/modern-style.css" rel="stylesheet">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "しゃちぶっく - TEAM SHACHIファン向けアプリ開発ケーススタディ",
+    "description": "TEAM SHACHIファン向けアプリ開発のケーススタディ。課題解決から技術実装まで詳しく解説。",
+    "image": "https://shadowkrr.github.io/portfolio/img/works/shachibook.png",
+    "author": {
+      "@type": "Person",
+      "name": "shadowkrr",
+      "url": "https://shadowkrr.github.io/portfolio/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "shadowkrr"
+    },
+    "datePublished": "2023-08-01",
+    "dateModified": "2024-01-01",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://shadowkrr.github.io/portfolio/case-study-shachibook.html"
+    },
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "しゃちぶっく",
+      "applicationCategory": "MobileApplication",
+      "operatingSystem": "iOS",
+      "programmingLanguage": "Swift"
+    }
+  }
+  </script>
+</head>
+
+<body class="case-study-page">
+  <!-- Navigation -->
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html" class="logo-text">SHADOWKRR</a>
+      </div>
+      
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="index.html#works" class="nav-link">Works</a></li>
+          <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Case Study Header -->
+  <section class="case-study-hero">
+    <div class="container">
+      <div class="breadcrumb" data-aos="fade-up">
+        <a href="index.html">Home</a> / <a href="index.html#works">Works</a> / <span>しゃちぶっく</span>
+      </div>
+      
+      <div class="case-study-header" data-aos="fade-up" data-aos-delay="100">
+        <h1 class="case-study-title">しゃちぶっく</h1>
+        <p class="case-study-subtitle">TEAM SHACHIの最新情報を一括管理できるファンアプリ</p>
+        
+        <div class="case-study-meta">
+          <div class="meta-item">
+            <span class="meta-label">Period</span>
+            <span class="meta-value">2023.04 - 2023.08 (4ヶ月)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Full Stack Developer</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Platform</span>
+            <span class="meta-value">iOS App / Web</span>
+          </div>
+        </div>
+
+        <div class="case-study-tech-stack">
+          <span class="tech-tag">Swift</span>
+          <span class="tech-tag">UIKit</span>
+          <span class="tech-tag">Core Data</span>
+          <span class="tech-tag">WebKit</span>
+          <span class="tech-tag">Push Notifications</span>
+          <span class="tech-tag">REST API</span>
+        </div>
+
+        <div class="case-study-links">
+          <a href="https://shachibook.site" target="_blank" rel="noopener" class="btn btn-primary">
+            <i class="fas fa-external-link-alt"></i> Visit Website
+          </a>
+          <a href="https://apps.apple.com/jp/app/shachibook/id1234567890" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fab fa-apple"></i> App Store
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Overview -->
+  <section class="case-study-section">
+    <div class="container">
+      <div class="section-content">
+        <div class="content-main" data-aos="fade-up">
+          <h2>プロジェクト概要</h2>
+          <p>
+            しゃちぶっくは、アイドルグループ「TEAM SHACHI」のファン向けに開発したiOSアプリです。
+            ファンが分散した情報源から最新情報を効率的に収集できるよう、
+            複数のソースからの情報を一元管理する機能を提供しています。
+          </p>
+
+          <div class="project-image" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/works/shachibook.png" alt="しゃちぶっくアプリのスクリーンショット" class="img-fluid">
+          </div>
+
+          <h2>課題と背景</h2>
+          <div class="challenge-section">
+            <div class="challenge-item" data-aos="fade-up" data-aos-delay="100">
+              <div class="challenge-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="challenge-content">
+                <h3>情報の分散化</h3>
+                <p>
+                  公式サイト、Twitter、Instagram、YouTube など複数のプラットフォームに情報が分散しており、
+                  ファンが全ての最新情報を把握するのが困難でした。
+                </p>
+              </div>
+            </div>
+
+            <div class="challenge-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="challenge-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="challenge-content">
+                <h3>リアルタイム性の欠如</h3>
+                <p>
+                  重要な情報（イベント情報、チケット販売開始など）をリアルタイムで受け取る
+                  統一された仕組みがありませんでした。
+                </p>
+              </div>
+            </div>
+
+            <div class="challenge-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="challenge-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <div class="challenge-content">
+                <h3>モバイル最適化不足</h3>
+                <p>
+                  既存の公式サイトはモバイルでの閲覧体験が最適化されておらず、
+                  スマートフォンユーザーにとって使いにくい状況でした。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h2>解決策とアプローチ</h2>
+          <div class="solution-grid">
+            <div class="solution-item" data-aos="fade-up" data-aos-delay="100">
+              <div class="solution-number">01</div>
+              <h3>情報統合システム</h3>
+              <p>
+                各種SNSやWebサイトのAPIを活用し、情報を自動収集・統合するバックエンドシステムを構築。
+                ユーザーは一つのアプリで全ての情報にアクセス可能に。
+              </p>
+            </div>
+
+            <div class="solution-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="solution-number">02</div>
+              <h3>プッシュ通知システム</h3>
+              <p>
+                重要な更新情報をリアルタイムでプッシュ通知として配信。
+                ユーザーは重要な情報を見逃すことなく受け取れるように。
+              </p>
+            </div>
+
+            <div class="solution-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="solution-number">03</div>
+              <h3>モバイルファーストUI</h3>
+              <p>
+                スマートフォンでの使いやすさを最優先に設計したネイティブiOSアプリ。
+                直感的な操作とスムーズなユーザー体験を実現。
+              </p>
+            </div>
+          </div>
+
+          <h2>技術的実装</h2>
+          <div class="tech-implementation">
+            <div class="tech-category" data-aos="fade-up" data-aos-delay="100">
+              <h3><i class="fas fa-mobile-alt"></i> iOS アプリ開発</h3>
+              <ul>
+                <li><strong>Swift + UIKit</strong>: ネイティブアプリとしてのパフォーマンスを重視</li>
+                <li><strong>Core Data</strong>: ローカルデータの永続化とオフライン対応</li>
+                <li><strong>URLSession</strong>: 非同期通信とAPIデータの取得</li>
+                <li><strong>UserNotifications</strong>: プッシュ通知の実装</li>
+              </ul>
+            </div>
+
+            <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+              <h3><i class="fas fa-server"></i> バックエンド システム</h3>
+              <ul>
+                <li><strong>REST API</strong>: データ配信用のAPIサーバー構築</li>
+                <li><strong>Web Scraping</strong>: 公式サイトからの情報自動収集</li>
+                <li><strong>Cron Jobs</strong>: 定期的なデータ更新処理</li>
+                <li><strong>Push Notification Service</strong>: APNs連携による通知配信</li>
+              </ul>
+            </div>
+
+            <div class="tech-category" data-aos="fade-up" data-aos-delay="300">
+              <h3><i class="fas fa-globe"></i> Webサイト</h3>
+              <ul>
+                <li><strong>Responsive Design</strong>: モバイルファーストのWebサイト</li>
+                <li><strong>Progressive Web App</strong>: アプリライクな体験をWebでも提供</li>
+                <li><strong>SEO最適化</strong>: 検索エンジンからの流入を考慮</li>
+              </ul>
+            </div>
+          </div>
+
+          <h2>成果と学び</h2>
+          <div class="results-section">
+            <div class="result-item" data-aos="fade-up" data-aos-delay="100">
+              <div class="result-metric">
+                <span class="metric-number">2,000+</span>
+                <span class="metric-label">アクティブユーザー</span>
+              </div>
+              <p>リリース後6ヶ月でファンコミュニティの約30%が利用</p>
+            </div>
+
+            <div class="result-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="result-metric">
+                <span class="metric-number">95%</span>
+                <span class="metric-label">情報取得効率向上</span>
+              </div>
+              <p>ユーザーアンケートによる情報収集時間の短縮効果</p>
+            </div>
+
+            <div class="result-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="result-metric">
+                <span class="metric-number">4.8/5</span>
+                <span class="metric-label">App Store評価</span>
+              </div>
+              <p>高いユーザー満足度を維持</p>
+            </div>
+          </div>
+
+          <div class="learnings" data-aos="fade-up">
+            <h3>プロジェクトで学んだこと</h3>
+            <ul>
+              <li>ユーザー中心設計の重要性：実際のファンニーズを深く理解することで、本当に価値のある機能を実装できた</li>
+              <li>データ収集の自動化：手動更新では限界があるため、自動化システムの構築が不可欠だった</li>
+              <li>プッシュ通知の適切な運用：頻度とタイミングの最適化により、ユーザーエンゲージメントを向上させることができた</li>
+              <li>コミュニティとの連携：ファンコミュニティからのフィードバックを積極的に取り入れることで、より良いプロダクトに成長させることができた</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-sidebar" data-aos="fade-up" data-aos-delay="100">
+          <div class="sidebar-section">
+            <h3>プロジェクト詳細</h3>
+            <div class="detail-item">
+              <span class="detail-label">開発期間</span>
+              <span class="detail-value">4ヶ月</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">チーム規模</span>
+              <span class="detail-value">1名（個人開発）</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">対象OS</span>
+              <span class="detail-value">iOS 14.0+</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">言語</span>
+              <span class="detail-value">日本語</span>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <h3>使用技術</h3>
+            <div class="tech-list">
+              <span class="tech-item">Swift</span>
+              <span class="tech-item">UIKit</span>
+              <span class="tech-item">Core Data</span>
+              <span class="tech-item">WebKit</span>
+              <span class="tech-item">UserNotifications</span>
+              <span class="tech-item">URLSession</span>
+              <span class="tech-item">Auto Layout</span>
+              <span class="tech-item">MVC Architecture</span>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <h3>外部ツール・サービス</h3>
+            <div class="tech-list">
+              <span class="tech-item">Apple Push Notification</span>
+              <span class="tech-item">Twitter API</span>
+              <span class="tech-item">Instagram API</span>
+              <span class="tech-item">YouTube API</span>
+              <span class="tech-item">Web Scraping</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation to Other Projects -->
+  <section class="case-study-navigation">
+    <div class="container">
+      <div class="nav-projects" data-aos="fade-up">
+        <div class="nav-project prev">
+          <a href="case-study-blog.html" class="nav-link">
+            <div class="nav-direction">
+              <i class="fas fa-arrow-left"></i>
+              <span>Previous Project</span>
+            </div>
+            <div class="nav-title">雑記まみむメモ</div>
+          </a>
+        </div>
+        
+        <div class="nav-center">
+          <a href="index.html#works" class="btn btn-outline">
+            <i class="fas fa-th"></i> All Projects
+          </a>
+        </div>
+
+        <div class="nav-project next">
+          <a href="case-study-github.html" class="nav-link">
+            <div class="nav-direction">
+              <span>Next Project</span>
+              <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="nav-title">Github OSS</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/modern-script.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>

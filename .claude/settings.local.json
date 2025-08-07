@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(true)",
+      "Bash(rm:*)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:cdnjs.cloudflare.com)",
+      "Bash(ls:*)",
+      "Bash(touch:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(python3:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git push:*)"
+    ],
+    "deny": []
+  }
+}

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  
+  <meta property="og:title" content="SHACHIBOOK - Case Study | SHADOWKRR Portfolio">
+  <meta property="og:description" content="Case study of TEAM SHACHI fan app development. Detailed explanation from problem solving to technical implementation.">
+  <meta property="og:image" content="img/works/shachibook.png">
+  <meta name="description" content="Case study of TEAM SHACHI fan app development. Detailed explanation from problem solving to technical implementation.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://shadowkrr.github.io/portfolio/case-study-shachibook-en.html">
+  <meta name="keywords" content="iOS,Swift,app development,TEAM SHACHI,fan app,mobile development,shadowkrr">
+  <meta name="author" content="shadowkrr">
+  <title>SHACHIBOOK - Case Study | SHADOWKRR Portfolio</title>
+  <link rel="canonical" href="https://shadowkrr.github.io/portfolio/case-study-shachibook-en.html">
+  
+  <!-- Language alternatives -->
+  <link rel="alternate" hreflang="ja" href="https://shadowkrr.github.io/portfolio/case-study-shachibook.html">
+  <link rel="alternate" hreflang="en" href="https://shadowkrr.github.io/portfolio/case-study-shachibook-en.html">
+  <link rel="alternate" hreflang="x-default" href="https://shadowkrr.github.io/portfolio/case-study-shachibook.html">
+  
+  <!-- PWA Configuration -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SHADOWKRR">
+  <meta name="theme-color" content="#667eea">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="css/reset.css" rel="stylesheet">
+  <link href="css/modern-style.css" rel="stylesheet">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "SHACHIBOOK - TEAM SHACHI Fan App Development Case Study",
+    "description": "Case study of TEAM SHACHI fan app development. Detailed explanation from problem solving to technical implementation.",
+    "image": "https://shadowkrr.github.io/portfolio/img/works/shachibook.png",
+    "author": {
+      "@type": "Person",
+      "name": "shadowkrr",
+      "url": "https://shadowkrr.github.io/portfolio/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "shadowkrr"
+    },
+    "datePublished": "2023-08-01",
+    "dateModified": "2024-01-01",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://shadowkrr.github.io/portfolio/case-study-shachibook-en.html"
+    },
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "SHACHIBOOK",
+      "applicationCategory": "MobileApplication",
+      "operatingSystem": "iOS",
+      "programmingLanguage": "Swift"
+    },
+    "inLanguage": "en"
+  }
+  </script>
+</head>
+
+<body class="case-study-page">
+  <!-- Language Switcher -->
+  <div class="language-switcher" id="language-switcher" role="group" aria-label="Language selection">
+    <a href="case-study-shachibook.html" class="lang-btn" aria-label="日本語" title="日本語">
+      🇯🇵 JP
+    </a>
+    <a href="case-study-shachibook-en.html" class="lang-btn active" aria-label="English" title="English" aria-current="page">
+      🇺🇸 EN
+    </a>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html?lang=en" class="logo-text">SHADOWKRR</a>
+      </div>
+      
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html?lang=en" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="index.html?lang=en#works" class="nav-link">Works</a></li>
+          <li class="nav-item"><a href="index.html?lang=en#about" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="index.html?lang=en#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Case Study Header -->
+  <section class="case-study-hero">
+    <div class="container">
+      <div class="breadcrumb" data-aos="fade-up">
+        <a href="index.html?lang=en">Home</a> / <a href="index.html?lang=en#works">Works</a> / <span>SHACHIBOOK</span>
+      </div>
+      
+      <div class="case-study-header" data-aos="fade-up" data-aos-delay="100">
+        <h1 class="case-study-title">SHACHIBOOK</h1>
+        <p class="case-study-subtitle">Fan app for centralized management of TEAM SHACHI's latest information</p>
+        
+        <div class="case-study-meta">
+          <div class="meta-item">
+            <span class="meta-label">Period</span>
+            <span class="meta-value">April 2023 - August 2023 (4 months)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Full Stack Developer</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Platform</span>
+            <span class="meta-value">iOS App / Web</span>
+          </div>
+        </div>
+
+        <div class="case-study-tech-stack">
+          <span class="tech-tag">Swift</span>
+          <span class="tech-tag">UIKit</span>
+          <span class="tech-tag">Core Data</span>
+          <span class="tech-tag">WebKit</span>
+          <span class="tech-tag">Push Notifications</span>
+          <span class="tech-tag">REST API</span>
+        </div>
+
+        <div class="case-study-links">
+          <a href="https://shachibook.site" target="_blank" rel="noopener" class="btn btn-primary">
+            <i class="fas fa-external-link-alt"></i> Visit Website
+          </a>
+          <a href="https://apps.apple.com/jp/app/shachibook/id1234567890" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fab fa-apple"></i> App Store
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Overview -->
+  <section class="case-study-section">
+    <div class="container">
+      <div class="section-content">
+        <div class="content-main" data-aos="fade-up">
+          <h2>Project Overview</h2>
+          <p>
+            SHACHIBOOK is an iOS app developed for fans of the idol group "TEAM SHACHI".
+            It provides functionality to centrally manage information from multiple sources,
+            enabling fans to efficiently collect the latest information from dispersed information sources.
+          </p>
+
+          <div class="project-image" data-aos="fade-up" data-aos-delay="100">
+            <img src="img/works/shachibook.png" alt="SHACHIBOOK app screenshots" class="img-fluid">
+          </div>
+
+          <h2>Challenges and Background</h2>
+          <div class="challenge-section">
+            <div class="challenge-item" data-aos="fade-up" data-aos-delay="100">
+              <div class="challenge-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="challenge-content">
+                <h3>Information Fragmentation</h3>
+                <p>
+                  Information was scattered across multiple platforms including official website, Twitter, Instagram, and YouTube,
+                  making it difficult for fans to keep track of all the latest updates.
+                </p>
+              </div>
+            </div>
+
+            <div class="challenge-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="challenge-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="challenge-content">
+                <h3>Lack of Real-time Updates</h3>
+                <p>
+                  There was no unified system for receiving important information (event details, ticket sales, etc.)
+                  in real-time.
+                </p>
+              </div>
+            </div>
+
+            <div class="challenge-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="challenge-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <div class="challenge-content">
+                <h3>Poor Mobile Optimization</h3>
+                <p>
+                  The existing official website was not optimized for mobile viewing,
+                  making it difficult to use for smartphone users.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h2>Solutions and Approach</h2>
+          <div class="solution-grid">
+            <div class="solution-item" data-aos="fade-up" data-aos-delay="100">
+              <div class="solution-number">01</div>
+              <h3>Information Integration System</h3>
+              <p>
+                Built a backend system that automatically collects and integrates information using APIs from various social media and websites.
+                Users can access all information through a single app.
+              </p>
+            </div>
+
+            <div class="solution-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="solution-number">02</div>
+              <h3>Push Notification System</h3>
+              <p>
+                Delivers important updates as real-time push notifications.
+                Users can receive important information without missing anything.
+              </p>
+            </div>
+
+            <div class="solution-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="solution-number">03</div>
+              <h3>Mobile-First UI</h3>
+              <p>
+                Native iOS app designed with smartphone usability as the top priority.
+                Achieved intuitive operations and smooth user experience.
+              </p>
+            </div>
+          </div>
+
+          <h2>Technical Implementation</h2>
+          <div class="tech-implementation">
+            <div class="tech-category" data-aos="fade-up" data-aos-delay="100">
+              <h3><i class="fas fa-mobile-alt"></i> iOS App Development</h3>
+              <ul>
+                <li><strong>Swift + UIKit</strong>: Emphasized performance as a native app</li>
+                <li><strong>Core Data</strong>: Local data persistence and offline support</li>
+                <li><strong>URLSession</strong>: Asynchronous communication and API data retrieval</li>
+                <li><strong>UserNotifications</strong>: Push notification implementation</li>
+              </ul>
+            </div>
+
+            <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+              <h3><i class="fas fa-server"></i> Backend System</h3>
+              <ul>
+                <li><strong>REST API</strong>: Built API server for data distribution</li>
+                <li><strong>Web Scraping</strong>: Automated information collection from official websites</li>
+                <li><strong>Cron Jobs</strong>: Regular data update processes</li>
+                <li><strong>Push Notification Service</strong>: Notification delivery through APNs integration</li>
+              </ul>
+            </div>
+
+            <div class="tech-category" data-aos="fade-up" data-aos-delay="300">
+              <h3><i class="fas fa-globe"></i> Website</h3>
+              <ul>
+                <li><strong>Responsive Design</strong>: Mobile-first website</li>
+                <li><strong>Progressive Web App</strong>: App-like experience on web as well</li>
+                <li><strong>SEO Optimization</strong>: Considered search engine traffic</li>
+              </ul>
+            </div>
+          </div>
+
+          <h2>Results and Learnings</h2>
+          <div class="results-section">
+            <div class="result-item" data-aos="fade-up" data-aos-delay="100">
+              <div class="result-metric">
+                <span class="metric-number">2,000+</span>
+                <span class="metric-label">Active Users</span>
+              </div>
+              <p>About 30% of the fan community uses the app within 6 months of release</p>
+            </div>
+
+            <div class="result-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="result-metric">
+                <span class="metric-number">95%</span>
+                <span class="metric-label">Information Efficiency Improvement</span>
+              </div>
+              <p>Time reduction effect in information collection according to user survey</p>
+            </div>
+
+            <div class="result-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="result-metric">
+                <span class="metric-number">4.8/5</span>
+                <span class="metric-label">App Store Rating</span>
+              </div>
+              <p>Maintaining high user satisfaction</p>
+            </div>
+          </div>
+
+          <div class="learnings" data-aos="fade-up">
+            <h3>Key Learnings from the Project</h3>
+            <ul>
+              <li>Importance of user-centered design: By deeply understanding actual fan needs, we were able to implement truly valuable features</li>
+              <li>Automation of data collection: Manual updates had limitations, making automated system construction essential</li>
+              <li>Proper operation of push notifications: By optimizing frequency and timing, we were able to improve user engagement</li>
+              <li>Collaboration with community: By actively incorporating feedback from the fan community, we were able to grow into a better product</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-sidebar" data-aos="fade-up" data-aos-delay="100">
+          <div class="sidebar-section">
+            <h3>Project Details</h3>
+            <div class="detail-item">
+              <span class="detail-label">Development Period</span>
+              <span class="detail-value">4 months</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Team Size</span>
+              <span class="detail-value">1 person (Solo development)</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Target OS</span>
+              <span class="detail-value">iOS 14.0+</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Language</span>
+              <span class="detail-value">Japanese</span>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <h3>Technologies Used</h3>
+            <div class="tech-list">
+              <span class="tech-item">Swift</span>
+              <span class="tech-item">UIKit</span>
+              <span class="tech-item">Core Data</span>
+              <span class="tech-item">WebKit</span>
+              <span class="tech-item">UserNotifications</span>
+              <span class="tech-item">URLSession</span>
+              <span class="tech-item">Auto Layout</span>
+              <span class="tech-item">MVC Architecture</span>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <h3>External Tools & Services</h3>
+            <div class="tech-list">
+              <span class="tech-item">Apple Push Notification</span>
+              <span class="tech-item">Twitter API</span>
+              <span class="tech-item">Instagram API</span>
+              <span class="tech-item">YouTube API</span>
+              <span class="tech-item">Web Scraping</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation to Other Projects -->
+  <section class="case-study-navigation">
+    <div class="container">
+      <div class="nav-projects" data-aos="fade-up">
+        <div class="nav-project prev">
+          <a href="case-study-blog-en.html" class="nav-link">
+            <div class="nav-direction">
+              <i class="fas fa-arrow-left"></i>
+              <span>Previous Project</span>
+            </div>
+            <div class="nav-title">Tech Blog</div>
+          </a>
+        </div>
+        
+        <div class="nav-center">
+          <a href="index.html?lang=en#works" class="btn btn-outline">
+            <i class="fas fa-th"></i> All Projects
+          </a>
+        </div>
+
+        <div class="nav-project next">
+          <a href="case-study-github-en.html" class="nav-link">
+            <div class="nav-direction">
+              <span>Next Project</span>
+              <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="nav-title">Github OSS</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/modern-script.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>
