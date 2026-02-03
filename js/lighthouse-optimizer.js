@@ -80,8 +80,8 @@ class LighthouseOptimizer {
             { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
             
             // Module preload for critical scripts
-            { rel: 'modulepreload', href: '/js/modern-script.js' },
-            { rel: 'modulepreload', href: '/js/pwa.js' }
+            { rel: 'modulepreload', href: 'js/modern-script.js' },
+            { rel: 'modulepreload', href: 'js/pwa.js' }
         ];
         
         hints.forEach(hint => {
@@ -145,11 +145,11 @@ class LighthouseOptimizer {
             }
         });
         
-        // Preload critical fonts
+        // Preload critical fonts (disabled - using Google Fonts CDN)
         const criticalFonts = [
-            '/fonts/Poppins-Regular.woff2',
-            '/fonts/Poppins-Bold.woff2',
-            '/fonts/NotoSansJP-Regular.woff2'
+            // 'fonts/Poppins-Regular.woff2',
+            // 'fonts/Poppins-Bold.woff2',
+            // 'fonts/NotoSansJP-Regular.woff2'
         ];
         
         criticalFonts.forEach(font => {
@@ -835,7 +835,7 @@ class LighthouseOptimizer {
         document.querySelectorAll('img').forEach(img => {
             // Ensure all images have proper file names in src
             const src = img.getAttribute('src');
-            if (src && src.includes('untitled') || src.includes('image')) {
+            if (src && (src.includes('untitled') || src.includes('image'))) {
                 console.warn('Image has non-descriptive filename:', src);
             }
             

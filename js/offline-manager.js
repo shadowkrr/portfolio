@@ -534,6 +534,7 @@ class OfflineManager {
 }
 
 // Add animation styles
+(function() {
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideInFromRight {
@@ -559,6 +560,7 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+})();
 
 // Initialize offline manager
 document.addEventListener('DOMContentLoaded', () => {

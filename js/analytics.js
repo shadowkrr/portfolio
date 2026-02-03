@@ -113,11 +113,12 @@ class PortfolioAnalytics {
      */
     initializeConsentMode() {
         // Initialize dataLayer
-        window[this.config.dataLayerName] = window[this.config.dataLayerName] || [];
-        
+        const dataLayerName = this.config.dataLayerName;
+        window[dataLayerName] = window[dataLayerName] || [];
+
         // Define gtag function
         window.gtag = window.gtag || function() {
-            window[this.config.dataLayerName].push(arguments);
+            window[dataLayerName].push(arguments);
         };
         
         // Set consent defaults
