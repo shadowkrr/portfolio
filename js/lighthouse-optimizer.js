@@ -77,11 +77,7 @@ class LighthouseOptimizer {
             
             // Preconnect for critical resources
             { rel: 'preconnect', href: 'https://fonts.googleapis.com', crossorigin: '' },
-            { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-            
-            // Module preload for critical scripts
-            { rel: 'modulepreload', href: 'js/modern-script.js' },
-            { rel: 'modulepreload', href: 'js/pwa.js' }
+            { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
         ];
         
         hints.forEach(hint => {
