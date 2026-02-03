@@ -882,7 +882,7 @@ class LighthouseOptimizer {
      * Check manifest completeness
      */
     checkManifestCompleteness() {
-        fetch('/manifest.json')
+        fetch('manifest.json')
             .then(response => response.json())
             .then(manifest => {
                 const requiredFields = ['name', 'short_name', 'start_url', 'display', 'background_color', 'theme_color', 'icons'];

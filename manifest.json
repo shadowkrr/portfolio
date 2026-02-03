@@ -185,6 +185,6 @@
     "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
     
     "scope_extensions": [
-        {"origin": "*.shadowkrr.github.io"}
+        {"type": "origin", "origin": "https://shadowkrr.github.io"}
     ]
 }

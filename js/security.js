@@ -53,7 +53,7 @@ class SecurityManager {
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://unpkg.com",
             "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com",
             "img-src 'self' data: https: http:",
-            "connect-src 'self' https://api.emailjs.com https://www.google-analytics.com https://analytics.google.com https://api.allorigins.win",
+            "connect-src 'self' https://api.emailjs.com https://www.google-analytics.com https://analytics.google.com https://api.allorigins.win https://cdnjs.cloudflare.com",
             "frame-src 'none'",
             "object-src 'none'",
             "base-uri 'self'",
