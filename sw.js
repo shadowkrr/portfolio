@@ -9,7 +9,7 @@
  * - Performance optimizations
  */
 
-const CACHE_VERSION = '1.2.0';
+const CACHE_VERSION = '1.2.1';
 const CACHE_NAME = `portfolio-v${CACHE_VERSION}`;
 const OFFLINE_CACHE = `portfolio-offline-v${CACHE_VERSION}`;
 const RUNTIME_CACHE = `portfolio-runtime-v${CACHE_VERSION}`;
@@ -19,41 +19,47 @@ const API_CACHE = `portfolio-api-v${CACHE_VERSION}`;
 const FORM_CACHE = `portfolio-forms-v${CACHE_VERSION}`;
 const EXTERNAL_CACHE = `portfolio-external-v${CACHE_VERSION}`;
 
+// Get base path from service worker location
+const SW_PATH = self.location.pathname;
+const BASE_PATH = SW_PATH.substring(0, SW_PATH.lastIndexOf('/') + 1);
+
+// Helper to resolve paths relative to base
+const resolvePath = (path) => BASE_PATH + path.replace(/^\//, '');
+
 // Core assets to cache immediately upon installation
 const CORE_ASSETS = [
-    '/',
-    '/index.html',
-    '/offline.html',
-    '/manifest.json',
-    '/case-study-shachibook.html',
-    '/case-study-github.html',
-    '/case-study-blog.html'
-];
+    './',
+    'index.html',
+    'offline.html',
+    'manifest.json',
+    'case-study-shachibook.html',
+    'case-study-github.html',
+    'case-study-blog.html'
+].map(resolvePath);
 
 // Static assets to cache with cache-first strategy
 const STATIC_ASSETS = [
-    '/css/reset.css',
-    '/css/modern-style.css',
-    '/js/modern-script.js',
-    '/js/modern-script.min.js',
-    '/js/contact-form.js',
-    '/js/contact-form.min.js',
-    '/js/emailjs-config.js',
-    '/js/security.js',
-    '/js/analytics.js',
-    '/js/cookie-consent.js',
-    '/js/pwa.js',
-    '/js/offline-manager.js',
-    '/js/sw.js'
-];
+    'css/reset.css',
+    'css/modern-style.css',
+    'js/modern-script.js',
+    'js/modern-script.min.js',
+    'js/contact-form.js',
+    'js/contact-form.min.js',
+    'js/emailjs-config.js',
+    'js/security.js',
+    'js/analytics.js',
+    'js/cookie-consent.js',
+    'js/pwa.js',
+    'js/offline-manager.js'
+].map(resolvePath);
 
 // Image assets to cache
 const IMAGE_ASSETS = [
-    '/img/favicon.ico',
-    '/img/ogp.png',
-    '/img/icons/icon-192x192.png',
-    '/img/icons/icon-512x512.png'
-];
+    'img/favicon.ico',
+    'img/ogp.png',
+    'img/icons/icon-192x192.png',
+    'img/icons/icon-512x512.png'
+].map(resolvePath);
 
 // Assets to cache with network-first strategy
 const NETWORK_FIRST_PATHS = [
@@ -120,7 +126,7 @@ self.addEventListener('install', event => {
             // Set up offline cache
             caches.open(OFFLINE_CACHE).then(cache => {
                 console.log('Setting up offline cache...');
-                return cache.add('/offline.html');
+                return cache.add(resolvePath('offline.html'));
             })
         ])
     );
@@ -255,8 +261,8 @@ self.addEventListener('push', event => {
         const data = event.data.json();
         const options = {
             body: data.body,
-            icon: '/img/favicon.ico',
-            badge: '/img/favicon.ico',
+            icon: resolvePath('img/favicon.ico'),
+            badge: resolvePath('img/favicon.ico'),
             vibrate: [100, 50, 100],
             data: data.data || {}
         };
@@ -415,7 +421,7 @@ async function networkWithFallback(request) {
         console.log('Network failed, serving offline page:', error);
         
         if (request.destination === 'document') {
-            return caches.match('/offline.html');
+            return caches.match(resolvePath('offline.html'));
         }
         
         const cached = await caches.match(request);
@@ -430,12 +436,12 @@ async function networkWithFallback(request) {
  */
 function isStaticAsset(request) {
     const url = new URL(request.url);
-    
+
     // Same origin static files
     if (url.origin === self.location.origin) {
         const pathname = url.pathname;
-        return pathname.startsWith('/css/') ||
-               pathname.startsWith('/js/') ||
+        return pathname.includes('/css/') ||
+               pathname.includes('/js/') ||
                pathname.endsWith('.css') ||
                pathname.endsWith('.js') ||
                pathname.endsWith('.json') ||
@@ -444,7 +450,7 @@ function isStaticAsset(request) {
                pathname.endsWith('.ttf') ||
                pathname.endsWith('.otf');
     }
-    
+
     return false;
 }
 
@@ -453,10 +459,10 @@ function isStaticAsset(request) {
  */
 function isImageRequest(request) {
     const url = new URL(request.url);
-    
+
     if (url.origin === self.location.origin) {
         const pathname = url.pathname;
-        return pathname.startsWith('/img/') ||
+        return pathname.includes('/img/') ||
                pathname.endsWith('.ico') ||
                pathname.endsWith('.png') ||
                pathname.endsWith('.jpg') ||
@@ -466,7 +472,7 @@ function isImageRequest(request) {
                pathname.endsWith('.gif') ||
                pathname.endsWith('.bmp');
     }
-    
+
     return false;
 }
 

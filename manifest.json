@@ -165,6 +165,7 @@
     "share_target": {
         "action": "/#contact",
         "method": "GET",
+        "enctype": "application/x-www-form-urlencoded",
         "params": {
             "title": "subject",
             "text": "message"

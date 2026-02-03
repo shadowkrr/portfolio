@@ -167,10 +167,10 @@ class CacheDebugger {
         
         try {
             const testUrls = [
-                { url: '/css/modern-style.css', strategy: 'cache-first', type: 'static' },
-                { url: '/js/modern-script.js', strategy: 'cache-first', type: 'static' },
-                { url: '/img/favicon.ico', strategy: 'cache-first', type: 'image' },
-                { url: '/', strategy: 'network-first', type: 'html' }
+                { url: 'css/modern-style.css', strategy: 'cache-first', type: 'static' },
+                { url: 'js/modern-script.js', strategy: 'cache-first', type: 'static' },
+                { url: 'img/favicon.ico', strategy: 'cache-first', type: 'image' },
+                { url: './', strategy: 'network-first', type: 'html' }
             ];
             
             const results = {};

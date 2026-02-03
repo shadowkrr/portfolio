@@ -647,7 +647,7 @@ class LighthouseOptimizer {
     addSecurityHeaders() {
         const headers = [
             { name: 'X-Content-Type-Options', content: 'nosniff' },
-            { name: 'X-Frame-Options', content: 'DENY' },
+            // X-Frame-Options must be set via HTTP header, not meta tag
             { name: 'X-XSS-Protection', content: '1; mode=block' },
             { name: 'Referrer-Policy', content: 'strict-origin-when-cross-origin' }
         ];
